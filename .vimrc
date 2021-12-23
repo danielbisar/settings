@@ -10,8 +10,9 @@ set expandtab
 set tabstop=4
 set shiftwidth=4
 
-" by default ignore case when searching
-"set ignorecase
+" by default ignore case when searching / use \c to search case sensitive
+set ignorecase
+set smartcase
 
 " color settings
 set term=screen-256color
