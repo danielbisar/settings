@@ -66,9 +66,14 @@ call plug#begin()
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 call plug#end()
 
+"""""""""""""" external tools
+" the fzf plugin requires fzf to be installed
+" setup :grep to ripgrep (rg)
+set grepprg=rg\ --vimgrep\ --smart-case --follow
 
-
-
+"""""""""""""" KEYMAP
+nnoremap <silent> <F3> :Files<CR>
+nnoremap <silent> <F4> :Rg<CR>
 
 
 """"""" WSL specific settings """"""""""""
@@ -80,9 +85,3 @@ if executable(s:clip)
         autocmd TextYankPost * call system('echo '.shellescape(join(v:event.regcontents, "\<CR>")).' | '.s:clip)
     augroup END
 end
-
-
-""""""""""""""  KEYMAP
-" ctrl-f calls fzf - default for ctrl-f is scroll page down
-nnoremap <silent> <C-f> :Files<CR>
-
