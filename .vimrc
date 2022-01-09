@@ -1,5 +1,9 @@
 set nocompatible
 
+" instead of abonden a buffer when it is not visible mark it as hidden
+" so you will get ask to save changes when closing vim
+set hidden
+
 " try to automatically detect file types
 filetype on
 filetype indent on
@@ -18,7 +22,8 @@ set smartcase
 set term=screen-256color
 set t_ut=
 
-command Settings e ~/.vimrc
+command Settings edit ~/.vimrc
+command ReloadSettings source ~/.vimrc
 
 " finding files
 "let &path = "./**," . &path
