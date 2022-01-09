@@ -26,8 +26,9 @@ command Settings edit ~/.vimrc
 command ReloadSettings source ~/.vimrc
 
 " finding files
-"let &path = "./**," . &path
-set path+=**
+" the downside of the below setting is that for large projects it is 
+" very slow - so disable for now
+"set path+=**
 
 " display all matching files with TAB completion
 set wildmenu
