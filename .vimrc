@@ -10,9 +10,13 @@ filetype indent on
 " currently no plugins are used but if the following could be helpful
 " filetype plugin on
 
+" code editing
 set expandtab
 set tabstop=4
 set shiftwidth=4
+
+" enable line numbers
+set number
 
 " by default ignore case when searching / use \c to search case sensitive
 set ignorecase
@@ -22,6 +26,7 @@ set smartcase
 set term=screen-256color
 set t_ut=
 
+" helpful commands to edit and reload the vimrc file
 command Settings edit ~/.vimrc
 command ReloadSettings source ~/.vimrc
 
@@ -37,6 +42,35 @@ set wildmenu
 
 
 
+" plugin configuration
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+
+" install vimplug if not exists
+if empty(glob(data_dir . '/autoload/plug.vim'))
+    silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin()
+    " The default plugin directory will be as follows:
+    "   - Vim (Linux/macOS): '~/.vim/plugged'
+    "   - Vim (Windows): '~/vimfiles/plugged'
+    "   - Neovim (Linux/macOS/Windows): stdpath('data') . '/plugged'
+    " You can specify a custom plugin directory by passing it as the argument
+    "   - e.g. `call plug#begin('~/.vim/plugged')`
+    "   - Avoid using standard Vim directory names like 'plugin'
+
+    " Make sure you use single quotes
+
+    Plug 'junegunn/fzf.vim'
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+call plug#end()
+
+
+
+
+
+
 """"""" WSL specific settings """"""""""""
 " WSL (Windows) using system clipboard
 let s:clip = '/mnt/c/Windows/System32/clip.exe'  " default location
@@ -47,4 +81,8 @@ if executable(s:clip)
     augroup END
 end
 
+
+""""""""""""""  KEYMAP
+" ctrl-f calls fzf - default for ctrl-f is scroll page down
+nnoremap <silent> <C-f> :Files<CR>
 
