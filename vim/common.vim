@@ -22,10 +22,6 @@ set number
 set ignorecase
 set smartcase
 
-" color settings
-set term=screen-256color
-set t_ut=
-
 " helpful commands to edit and reload the vimrc file
 command Settings edit ~/.vimrc
 command ReloadSettings source ~/.vimrc
@@ -40,7 +36,7 @@ set wildmenu
 
 " TIPS: :find and use * for fuzzy search, :b lets you auto-complete any open buffer
 
-
+set termguicolors
 
 " plugin configuration
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
@@ -85,3 +81,14 @@ if executable(s:clip)
         autocmd TextYankPost * call system('echo '.shellescape(join(v:event.regcontents, "\<CR>")).' | '.s:clip)
     augroup END
 end
+
+" source from http://threkk.medium.com/how-to-have-a-neovim-configuration-compatible-with-vim-b5a46723145es
+let is_nvim = has('nvim')
+let $BASE = '$HOME/src/settings/vim'
+
+if is_nvim
+    source $BASE/neovim-only.vim
+else
+    source $BASE/vim-only.vim
+endif
+
