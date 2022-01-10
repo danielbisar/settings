@@ -69,7 +69,7 @@ call plug#end()
 """""""""""""" external tools
 " the fzf plugin requires fzf to be installed
 " setup :grep to ripgrep (rg)
-set grepprg=rg\ --vimgrep\ --smart-case --follow
+set grepprg=rg\ --vimgrep\ --smart-case\ --follow
 
 """""""""""""" KEYMAP
 nnoremap <silent> <F3> :Files<CR>
