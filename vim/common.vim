@@ -60,16 +60,116 @@ call plug#begin()
 
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
+    Plug 'OmniSharp/omnisharp-vim'
+    Plug 'dense-analysis/ale'
+
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
+
+    " status bar 
+    Plug 'itchyny/lightline.vim'
+    Plug 'maximbaz/lightline-ale'
 call plug#end()
+
+"""""""""" omnisharp
+" Don't autoselect first omnicomplete option, show options even if there is
+" only
+" " one (so the preview documentation is accessible). Remove 'preview',
+" 'popup'
+" " and 'popuphidden' if you don't want to see any documentation whatsoever.
+" " Note that neovim does not support `popuphidden` or `popup` yet:
+" " https://github.com/neovim/neovim/issues/10996
+if has('patch-8.1.1880')
+    set completeopt=longest,menuone,popuphidden
+    " Highlight the completion documentation popup background/foreground the
+    " same as
+    " the completion menu itself, for better readability with highlighted
+    " documentation.
+    set completepopup=highlight:Pmenu,border:off
+else
+    set completeopt=longest,menuone,preview
+    " Set desired preview window height for viewing documentation.
+    set previewheight=5
+endif
+
+" Tell ALE to use OmniSharp for linting C# files, and no other linters.
+let g:ale_linters = { 'cs': ['OmniSharp'] }
+
+" Enable snippet completion, using the ultisnips plugin
+let g:OmniSharp_want_snippet=1
+
+
+
+
+
+
+
+let g:lightline = {}
+
+let g:lightline.component_expand = {
+      \  'linter_checking': 'lightline#ale#checking',
+      \  'linter_infos': 'lightline#ale#infos',
+      \  'linter_warnings': 'lightline#ale#warnings',
+      \  'linter_errors': 'lightline#ale#errors',
+      \  'linter_ok': 'lightline#ale#ok',
+      \ }
+
+let g:lightline.component_type = {
+      \     'linter_checking': 'right',
+      \     'linter_infos': 'right',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error',
+      \     'linter_ok': 'right',
+      \ }
+
+
+let g:lightline.active = {
+            \ 'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
+            \            [ 'lineinfo' ],
+        \            [ 'percent' ],
+        \            [ 'fileformat', 'fileencoding', 'filetype'] ] }
+
+
+
+
 
 """""""""""""" external tools
 " the fzf plugin requires fzf to be installed
 " setup :grep to ripgrep (rg)
 set grepprg=rg\ --vimgrep\ --smart-case\ --follow
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 """""""""""""" KEYMAP
 nnoremap <silent> <F3> :Files<CR>
 nnoremap <silent> <F4> :Rg<CR>
+
+
+
+
+
+
+
+
+
+
 
 
 """"""" WSL specific settings """"""""""""
@@ -81,6 +181,16 @@ if executable(s:clip)
         autocmd TextYankPost * call system('echo '.shellescape(join(v:event.regcontents, "\<CR>")).' | '.s:clip)
     augroup END
 end
+
+
+
+
+
+
+
+
+
+
 
 " source from http://threkk.medium.com/how-to-have-a-neovim-configuration-compatible-with-vim-b5a46723145es
 let is_nvim = has('nvim')
