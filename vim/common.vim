@@ -7,8 +7,7 @@ set hidden
 " try to automatically detect file types
 filetype on
 filetype indent on
-" currently no plugins are used but if the following could be helpful
-" filetype plugin on
+filetype plugin on
 
 " code editing
 set expandtab
@@ -201,4 +200,6 @@ if is_nvim
 else
     source $BASE/vim-only.vim
 endif
+
+source $BASE/filetypes.vim
 
