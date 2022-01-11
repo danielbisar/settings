@@ -12,15 +12,14 @@ export FZF_DEFAULT_OPTS='-m'
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 ##################### ALIASES
+alias gcm='git commit -m' 
+alias ga='git add'
+alias gs='git status'
 alias n=nvim
-
-
-
-
-
+alias edit-env='nvim ~/src/settings/environment.sh && . ~/src/settings/environment.sh'
 
 #### helpful functions ######
-function color_test_256()
+color_test_256()
 {
     for fgbg in 38 48 ; do # Foreground / Background
         for color in {0..255} ; do # Colors
@@ -83,7 +82,7 @@ rainbowColor()
 }
 
 
-function color_test_24bit()
+color_test_24bit()
 {
     for i in `seq 0 127`; do
         setBackgroundColor $i 0 0

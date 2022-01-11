@@ -21,9 +21,21 @@ set number
 set ignorecase
 set smartcase
 
-" helpful commands to edit and reload the vimrc file
-command Settings edit ~/.vimrc
-command ReloadSettings source ~/.vimrc
+
+
+
+command! CleanAllCarriageReturns :%s/\r$//
+
+
+
+
+
+
+
+
+
+
+
 
 " finding files
 " the downside of the below setting is that for large projects it is 
@@ -34,8 +46,6 @@ command ReloadSettings source ~/.vimrc
 set wildmenu
 
 " TIPS: :find and use * for fuzzy search, :b lets you auto-complete any open buffer
-
-set termguicolors
 
 " plugin configuration
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
@@ -159,7 +169,10 @@ set grepprg=rg\ --vimgrep\ --smart-case\ --follow
 """""""""""""" KEYMAP
 nnoremap <silent> <F3> :Files<CR>
 nnoremap <silent> <F4> :Rg<CR>
+nnoremap <F12> :OmniSharpGotoDefinition<CR> 
 
+" insert mode keymaps
+inoremap <F12> <ESC>:OmniSharpGotoDefinition<CR>
 
 
 
@@ -201,5 +214,16 @@ else
     source $BASE/vim-only.vim
 endif
 
+source $BASE/colors.vim
 source $BASE/filetypes.vim
+source $BASE/netrw.vim
+
+" helpful commands to edit and reload the vimrc file
+command! Settings edit ~/.vimrc
+command! SettingsColors edit $BASE/colors.vim
+command! SettingsFiletypes edit $BASE/filetypes.vim
+command! SettingsNetrw edit $BASE/netrw.vim
+
+command! SettingsReload source ~/.vimrc
+
 
