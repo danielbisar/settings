@@ -17,6 +17,12 @@ alias ga='git add'
 alias gs='git status'
 alias n=nvim
 alias edit-env='nvim ~/src/settings/environment.sh && . ~/src/settings/environment.sh'
+alias edit-setup='nvim ~/src/settings/setup.sh'
+
+setup-env()
+{
+    ~/src/settings/setup.sh
+}
 
 #### helpful functions ######
 color_test_256()
