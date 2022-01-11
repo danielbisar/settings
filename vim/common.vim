@@ -224,6 +224,6 @@ command! SettingsColors edit $BASE/colors.vim
 command! SettingsFiletypes edit $BASE/filetypes.vim
 command! SettingsNetrw edit $BASE/netrw.vim
 
-command! SettingsReload source ~/.vimrc
+command! ReloadSettings source ~/.vimrc
 
 
