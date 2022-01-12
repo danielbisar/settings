@@ -4,6 +4,8 @@ set nocompatible
 " so you will get ask to save changes when closing vim
 set hidden
 
+set mouse=n
+
 " try to automatically detect file types
 filetype on
 filetype indent on
