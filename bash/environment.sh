@@ -2,6 +2,7 @@
 # variables and so forth as i like
 
 export SETTINGS_BASE="$(dirname "${BASH_SOURCE[0]}")"
+export SETTINGS_VIM_BASE="$(dirname "${BASH_SOURCE[0]}")/../vim"
 
 # make fzf use ripgrep if installed 
 if type rg &> /dev/null; then
@@ -28,4 +29,5 @@ bind '"\e[5~": history-search-backward'
 bind '"\e[6~": history-search-forward'
 
 . "$SETTINGS_BASE"/colors.sh
+
 
