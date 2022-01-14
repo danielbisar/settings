@@ -72,11 +72,12 @@ call plug#begin()
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
-    Plug 'OmniSharp/omnisharp-vim'
-    Plug 'dense-analysis/ale'
+    "Plug 'OmniSharp/omnisharp-vim'
+    "Plug 'dense-analysis/ale'
 
-    Plug 'SirVer/ultisnips'
-    Plug 'honza/vim-snippets'
+    "Plug 'SirVer/ultisnips'
+    "Plug 'honza/vim-snippets'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
     " status bar 
     Plug 'itchyny/lightline.vim'
@@ -91,24 +92,24 @@ call plug#end()
 " " and 'popuphidden' if you don't want to see any documentation whatsoever.
 " " Note that neovim does not support `popuphidden` or `popup` yet:
 " " https://github.com/neovim/neovim/issues/10996
-if has('patch-8.1.1880')
-    set completeopt=longest,menuone,popuphidden
+"if has('patch-8.1.1880')
+"    set completeopt=longest,menuone,popuphidden
     " Highlight the completion documentation popup background/foreground the
     " same as
     " the completion menu itself, for better readability with highlighted
     " documentation.
-    set completepopup=highlight:Pmenu,border:off
-else
-    set completeopt=longest,menuone,preview
+"    set completepopup=highlight:Pmenu,border:off
+"else
+"    set completeopt=longest,menuone,preview
     " Set desired preview window height for viewing documentation.
-    set previewheight=5
-endif
+"    set previewheight=5
+"endif
 
 " Tell ALE to use OmniSharp for linting C# files, and no other linters.
-let g:ale_linters = { 'cs': ['OmniSharp'] }
+"let g:ale_linters = { 'cs': ['OmniSharp'] }
 
 " Enable snippet completion, using the ultisnips plugin
-let g:OmniSharp_want_snippet=1
+"let g:OmniSharp_want_snippet=1
 
 
 
@@ -171,10 +172,10 @@ set grepprg=rg\ --vimgrep\ --smart-case\ --follow
 """""""""""""" KEYMAP
 nnoremap <silent> <F3> :Files<CR>
 nnoremap <silent> <F4> :Rg<CR>
-nnoremap <F12> :OmniSharpGotoDefinition<CR> 
+"nnoremap <F12> :OmniSharpGotoDefinition<CR> 
 
 " insert mode keymaps
-inoremap <F12> <ESC>:OmniSharpGotoDefinition<CR>
+"inoremap <F12> <ESC>:OmniSharpGotoDefinition<CR>
 
 
 
@@ -227,5 +228,4 @@ command! SettingsFiletypes edit $BASE/filetypes.vim
 command! SettingsNetrw edit $BASE/netrw.vim
 
 command! ReloadSettings source ~/.vimrc
-
 
