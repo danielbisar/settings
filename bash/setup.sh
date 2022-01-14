@@ -13,6 +13,7 @@ fi
 if [[ ! -L ~/.config/nvim/init.vim ]]; then
     echo setting up nvim init.vim symlink
     mkdir -p ~/.config/nvim
+    mv ~/.config/nvim/init.vim init.vim.original
     ln -s "$SETTINGS_BASE"/../vim/common.vim ~/.config/nvim/init.vim
 fi
 
