@@ -1,13 +1,15 @@
 #!/bin/bash
 
-if [[ -z "$SETTINGS_BASE" ]]; then
-    export SETTINGS_BASE="$(dirname "${BASH_SOURCE[0]}")/.."
-fi
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+SETTINGS_BASE="$DIR"
 
 if [[ ! -L ~/.vimrc ]]; then
     echo setting up .vimrc sym-link
-    mv ~/.vimrc ~/.vimrc.orignal
-    ln -s "$SETTINGS_BASE"/../vim/common.vim .vimrc
+    if [[ -f ~/.vimrc ]]; then
+        mv ~/.vimrc ~/.vimrc.orignal
+    fi
+    ln -s "$SETTINGS_BASE"/../vim/common.vim ~/.vimrc
 fi
 
 if [[ ! -L ~/.config/nvim/init.vim ]]; then

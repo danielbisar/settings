@@ -6,11 +6,11 @@ install-basic-tools()
     sudo apt install fzf ripgrep
     sudo apt install python3 python3-pip
     pip3 install pynvim             # if not installed yet
-    pip3 install --upgrade pynvim   # upgrade if was already installed
+    sudo pip3 install --upgrade pynvim   # upgrade if was already installed
 
 
     curl -sL https://deb.nodesource.com/setup_current.x | sudo -E bash -
-    sudo install nodejs npm
+    sudo apt install nodejs npm
     sudo npm -g install neovim    
 }
 
