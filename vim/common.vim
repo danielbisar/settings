@@ -18,6 +18,9 @@ set shiftwidth=4
 
 " enable line numbers
 set number
+" always show the sign column, so that linting errors do not make the number
+" column wider or smaller
+set scl=yes
 
 " by default ignore case when searching / use \c to search case sensitive
 set ignorecase
@@ -72,17 +75,15 @@ call plug#begin()
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
-    "Plug 'OmniSharp/omnisharp-vim'
-    "Plug 'dense-analysis/ale'
-
-    "Plug 'SirVer/ultisnips'
-    "Plug 'honza/vim-snippets'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
+    Plug 'sheerun/vim-polyglot'
+    
     " status bar 
     Plug 'itchyny/lightline.vim'
     Plug 'maximbaz/lightline-ale'
 call plug#end()
+
+let g:coc_global_extensions=[ 'coc-marketplace', 'coc-omnisharp' ]
 
 """""""""" omnisharp
 " Don't autoselect first omnicomplete option, show options even if there is
@@ -167,26 +168,6 @@ set grepprg=rg\ --vimgrep\ --smart-case\ --follow
 
 
 
-
-
-"""""""""""""" KEYMAP
-nnoremap <silent> <F3> :Files<CR>
-nnoremap <silent> <F4> :Rg<CR>
-"nnoremap <F12> :OmniSharpGotoDefinition<CR> 
-
-" insert mode keymaps
-"inoremap <F12> <ESC>:OmniSharpGotoDefinition<CR>
-
-
-
-
-
-
-
-
-
-
-
 """"""" WSL specific settings """"""""""""
 " WSL (Windows) using system clipboard
 let s:clip = '/mnt/c/Windows/System32/clip.exe'  " default location
@@ -219,6 +200,7 @@ endif
 
 source $BASE/colors.vim
 source $BASE/filetypes.vim
+source $BASE/keymap.vim
 source $BASE/netrw.vim
 
 " helpful commands to edit and reload the vimrc file
@@ -226,6 +208,7 @@ command! Settings edit ~/.vimrc
 command! SettingsColors edit $BASE/colors.vim
 command! SettingsFiletypes edit $BASE/filetypes.vim
 command! SettingsNetrw edit $BASE/netrw.vim
+command! SettingsKeymap edit $BASE/keymap.vim
 
 command! ReloadSettings source ~/.vimrc
 
