@@ -27,17 +27,49 @@ set ignorecase
 set smartcase
 
 
+" color the char at column 81
+highlight ColorColumn ctermbg=magenta guibg=magenta
+call matchadd('ColorColumn', '\%81v', 100)
+call matchadd('ColorColumn', '\%121vi', 100)
 
+exe "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+set list
+
+nnoremap ; :
+nnoremap : ;
+vnoremap ; :
+vnoremap : ;
+
+"function! SpecialHighlightOnNext(blinktime)
+"    let [bufnum, lnum, col, off] = getpos('.')
+"    let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
+"    let target_pat = '\c\%#'.@/
+"    let blinks = 3
+"
+"    for n in range(1, blinks)
+"        let red = matchadd('WhiteOnRed', target_pat, 101)
+"        redraw
+"        exec 'sleep ' . float2nr(a:blinktime / (2*blinks) * 1000) . 'm'
+"        call matchdelete(red)
+"        redraw
+"        exec 'sleep ' . float2nr(a:blinktime / (2*blinks) * 1000) . 'm'
+"    endfor
+"endfunction
+
+"nnoremap <silent> n     n:call SpecialHighlightOnNext(0.4)<CR>
+"nnoremap <silent> N     N:call SpecialHighlightOnNext(0.4)<CR>
 
 command! CleanAllCarriageReturns :%s/\r$//
 
 
+" visual block drag
+runtime plugin/dragvisuals.vim
 
-
-
-
-
-
+vmap <expr> <S-LEFT>  DVB_Drag('left')
+vmap <expr> <S-RIGHT> DVB_Drag('right')
+vmap <expr> <S-DOWN>  DVB_Drag('down')
+vmap <expr> <S-UP>    DVB_Drag('up')
+vmap <expr> D         DVB_Duplicate()
 
 
 
@@ -84,38 +116,6 @@ call plug#begin()
 call plug#end()
 
 let g:coc_global_extensions=[ 'coc-marketplace', 'coc-omnisharp' ]
-
-"""""""""" omnisharp
-" Don't autoselect first omnicomplete option, show options even if there is
-" only
-" " one (so the preview documentation is accessible). Remove 'preview',
-" 'popup'
-" " and 'popuphidden' if you don't want to see any documentation whatsoever.
-" " Note that neovim does not support `popuphidden` or `popup` yet:
-" " https://github.com/neovim/neovim/issues/10996
-"if has('patch-8.1.1880')
-"    set completeopt=longest,menuone,popuphidden
-    " Highlight the completion documentation popup background/foreground the
-    " same as
-    " the completion menu itself, for better readability with highlighted
-    " documentation.
-"    set completepopup=highlight:Pmenu,border:off
-"else
-"    set completeopt=longest,menuone,preview
-    " Set desired preview window height for viewing documentation.
-"    set previewheight=5
-"endif
-
-" Tell ALE to use OmniSharp for linting C# files, and no other linters.
-"let g:ale_linters = { 'cs': ['OmniSharp'] }
-
-" Enable snippet completion, using the ultisnips plugin
-"let g:OmniSharp_want_snippet=1
-
-
-
-
-
 
 
 let g:lightline = {}
@@ -211,4 +211,6 @@ command! SettingsNetrw edit $BASE/netrw.vim
 command! SettingsKeymap edit $BASE/keymap.vim
 
 command! ReloadSettings source ~/.vimrc
+
+let &runtimepath.=',' . escape($BASE, '\,')
 
