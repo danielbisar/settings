@@ -60,6 +60,9 @@ vnoremap : ;
 "nnoremap <silent> N     N:call SpecialHighlightOnNext(0.4)<CR>
 
 command! CleanAllCarriageReturns :%s/\r$//
+command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis  | wincmd p | diffthis
+
+
 
 
 " visual block drag
@@ -72,6 +75,7 @@ vmap <expr> <S-UP>    DVB_Drag('up')
 vmap <expr> D         DVB_Duplicate()
 
 
+set scrolloff=5
 
 
 " finding files
