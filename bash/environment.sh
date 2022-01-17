@@ -76,6 +76,7 @@ alias ga='git add'
 alias gd='git diff'
 alias gl='git log --oneline --decorate'
 alias gs='git status'
+alias gp='git push'
 alias n=nvim
 alias edit-env='nvim $SETTINGS_BASE/environment.sh && . $SETTINGS_BASE/environment.sh'
 alias edit-setup='nvim $SETTINGS_BASE/setup.sh'
