@@ -73,6 +73,7 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 ##################### ALIASES
 alias gcm='git commit -m' 
 alias ga='git add'
+alias gd='git diff'
 alias gl='git log --oneline --decorate'
 alias gs='git status'
 alias n=nvim
