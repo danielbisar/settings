@@ -51,3 +51,27 @@ Now it is a good idea to log out and login again or source the environment.sh ma
     - edit-env = open environment.sh in nvim and source the file after closing
     - edit-setup = edit the setup.sh
 - PgUp and PgDown mapped to search the history
+
+## nvim
+
+After starting nvim for the first time after the setup execute :PlugInstall to install all required
+plugins and the color scheme.
+
+Restart vim.
+
+Note: ; is mapped to : and : to ; for normal mode
+
+- :Settings to quickly edit the common.vim
+- :SettingsKeyboard to quickly edit the keymap
+- :SettingsFiletypes for filetypes
+- :SettingsNetrw for netrw configs
+- :CleanAllCarriageReturns to remove all \r chars from the file
+- theme = a bit like visual studio code
+
+## plugins
+
+TODO
+
+
+
+
