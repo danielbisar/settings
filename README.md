@@ -26,5 +26,12 @@ ATTENTION: This will replace your .vimrc and .config/nvim/init.vim even though
 it should backup the files beforehand. The .bashrc gets modified to contain 
 ~/src/settings/bash/environment.sh as last line.
 
-Thats it. Now my custom settings will take effect.
+## Further setup
 
+To install dependencies (fzf, ripgrep, nodejs for coc.vim) on Ubuntu use the
+bash/ubuntu_install_functions.sh script.
+
+```
+. ~/src/settings/bash/ubuntu_install_functions.sh
+install-basic-tools
+```
