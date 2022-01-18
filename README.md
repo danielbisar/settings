@@ -35,3 +35,19 @@ bash/ubuntu_install_functions.sh script.
 . ~/src/settings/bash/ubuntu_install_functions.sh
 install-basic-tools
 ```
+
+Now it is a good idea to log out and login again or source the environment.sh manually.
+
+# What is included
+
+## bash
+
+- color_test_256 and color_test_24bit which output some test patterns to test your terminals color capabilities 
+- fzf configured to use ripgrep
+- bigger history
+- color output enabled for grep, fgrep, egrep
+- aliases ll, la, l (see environment.sh for what they do); for git: gcm, ga, gd, gl, gs, gp
+    - n = nvim; 
+    - edit-env = open environment.sh in nvim and source the file after closing
+    - edit-setup = edit the setup.sh
+- PgUp and PgDown mapped to search the history
