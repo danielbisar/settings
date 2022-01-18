@@ -28,9 +28,10 @@ set smartcase
 
 
 " color the char at column 81
-highlight ColorColumn ctermbg=magenta guibg=magenta
-call matchadd('ColorColumn', '\%81v', 100)
-call matchadd('ColorColumn', '\%121vi', 100)
+highlight ColorColumn guibg=#101010
+set colorcolumn=81,121,161
+"call matchadd('ColorColumn', '\%81v', 100)
+"call matchadd('ColorColumn', '\%121vi', 100)
 
 exe "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
 set list
@@ -60,7 +61,7 @@ vnoremap : ;
 "nnoremap <silent> N     N:call SpecialHighlightOnNext(0.4)<CR>
 
 command! CleanAllCarriageReturns :%s/\r$//
-command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis  | wincmd p | diffthis
+command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis  | wincmd p | diffthis
 
 
 
@@ -113,13 +114,17 @@ call plug#begin()
 
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'sheerun/vim-polyglot'
-    
-    " status bar 
+
+    " status bar
     Plug 'itchyny/lightline.vim'
     Plug 'maximbaz/lightline-ale'
+
+    Plug 'tomasiser/vim-code-dark'
 call plug#end()
 
-let g:coc_global_extensions=[ 'coc-marketplace', 'coc-omnisharp' ]
+colorscheme codedark
+
+let g:coc_global_extensions=[ 'coc-marketplace', 'coc-omnisharp', 'coc-json' ]
 
 
 let g:lightline = {}
