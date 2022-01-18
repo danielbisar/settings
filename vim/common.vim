@@ -124,8 +124,15 @@ call plug#end()
 
 colorscheme codedark
 
-let g:coc_global_extensions=[ 'coc-marketplace', 'coc-omnisharp', 'coc-json' ]
-
+let g:coc_global_extensions=[
+            \ 'coc-marketplace',
+            \ 'coc-omnisharp',
+            \ 'coc-json',
+            \ 'coc-clangd',
+            \ 'coc-cmake',
+            \ 'coc-snippets',
+            \ 'coc-sql',
+            \ 'coc-vimlsp' ]
 
 let g:lightline = {}
 
