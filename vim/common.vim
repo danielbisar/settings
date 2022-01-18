@@ -20,7 +20,7 @@ set shiftwidth=4
 set number
 " always show the sign column, so that linting errors do not make the number
 " column wider or smaller
-set scl=yes
+set signcolumn=yes
 
 " by default ignore case when searching / use \c to search case sensitive
 set ignorecase
