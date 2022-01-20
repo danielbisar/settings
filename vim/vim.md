@@ -43,4 +43,24 @@ N           previous (search backward)
 ..\c        search case insensitive
 ..\C        search case sensitive
 
+--------------------------------------------------------------------------------
+
+# Cheat sheet
+
+# Clean up
+
+Remove all empty (whitespace only) lines            :g/^\s*$/d
+
+https://vim.fandom.com/wiki/Remove_unwanted_empty_lines
+
+## Replace
+
+Replace text inside quotes                          ci" or ci'
+Replace the word the cursor is on                   ciw
+Replace text inside ()                              ci(
+Replace text inside tags                            cit
+
+## XML
+
+Remove all xml comments in file                     :%s/<!--\_.\{-}-->//g
 
