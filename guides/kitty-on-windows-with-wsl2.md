@@ -1,14 +1,12 @@
 # Using kitty on windows 11 with WSL2
 
 Date: 2021-01-21
+```
 Windows Version: Windows 11 Pro 21H2 - OS build: 22000.438
-WSL2: 
-```
 Windows Subsystem for Linux was last updated on 09.10.2021
-WSL automatic updates are on.
 Kernel version: 5.10.60.1
-```
 Graphics driver: NVIDIA 511.23
+```
 
 This guide expects a working WSL2 installation under windows with working
 internet connectivity. This guide just provides a brief description what worked
@@ -19,16 +17,16 @@ Tested on a laptop and PC, both with an NVIDIA Graphics card.
 1. Install latest mesa inside the WSL2 installation (tested with ubuntu 20.04)
    See: https://launchpad.net/~kisak/+archive/ubuntu/kisak-mesa
 
-   ```
+```
 sudo add-apt-repository ppa:kisak/kisak-mesa
 # sudo apt-get update    seems not to be necessary, at least it was automatically done on my installation
 sudo apt upgrade     #  this should ask to install multiple mesa packages from kisak
-   ```
+```
 2. optional: `sudo apt install x11-apps` and then run `xclock` worked for me even without vcxsrv
 3. helpful but also not strictly necessary: `sudo apt install mesa-utils` and run `glxinfo -B`
    Your output should look something like:
 
-   ```
+```
 name of display: :0
 display: :0  screen: 0
 direct rendering: Yes
@@ -57,9 +55,12 @@ OpenGL context flags: (none)
 
 OpenGL ES profile version string: OpenGL ES 3.0 Mesa 21.3.4 - kisak-mesa PPA
 OpenGL ES profile shading language version string: OpenGL ES GLSL ES 3.00
-   ```
+```
 
    Important part: For kitty to work you need OpenGL 3.SOMETHING 
    Didn't find the requirement right now.
+
 4. Install kitty via `sudo apt install kitty`
-5. start it via `kitty`
+
+
+6. start it via `kitty`
