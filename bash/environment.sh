@@ -80,6 +80,7 @@ alias gp='git push'
 alias n=nvim
 alias edit-env='nvim $SETTINGS_BASE/environment.sh && . $SETTINGS_BASE/environment.sh'
 alias edit-setup='nvim $SETTINGS_BASE/setup.sh'
+alias image-show='kitty +kitten icat'
 
 #################### KEYBINDINGS
 # PgUp and PgDown to search history
