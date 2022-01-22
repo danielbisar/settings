@@ -218,6 +218,7 @@ source $BASE/colors.vim
 source $BASE/filetypes.vim
 source $BASE/keymap.vim
 source $BASE/netrw.vim
+source $BASE/ansihighlight.vim
 
 " helpful commands to edit and reload the vimrc file
 command! Settings edit ~/.vimrc
@@ -229,4 +230,5 @@ command! SettingsKeymap edit $BASE/keymap.vim
 command! ReloadSettings source ~/.vimrc
 
 let &runtimepath.=',' . escape($BASE, '\,')
+
 
