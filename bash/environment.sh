@@ -21,6 +21,8 @@ export FZF_DEFAULT_OPTS="-m --preview='preview {}' --ansi"
 # required to clean up the left over image preview
 fzf()
 {
+  export orig_cols=$COLUMNS
+  export orig_rows=$LINES
   /bin/fzf $@
   # clean up left over images
   tput smcup
