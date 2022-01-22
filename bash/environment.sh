@@ -16,7 +16,7 @@ if type rg &> /dev/null; then
 fi
 
 # enable multi-select for FZF and use the preview function
-export FZF_DEFAULT_OPTS="-m --preview='preview {}'"
+export FZF_DEFAULT_OPTS="-m --preview='preview {}' --ansi"
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -66,8 +66,6 @@ fi
 
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-
 
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
