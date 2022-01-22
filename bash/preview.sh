@@ -1,5 +1,12 @@
 #!/bin/bash
 
+#HAS_KITTY=$(type kitty &> /dev/null && echo 1 || echo 0)
+#if [[ 1 -eq 1 ]] ; then echo x; else echo z; fi
+
+# todo check if executed from kitty 
+# xterm-kitty in $TERM
+
+
 preview()
 {
     fileName="$1"
