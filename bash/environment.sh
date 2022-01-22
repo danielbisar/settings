@@ -18,6 +18,16 @@ fi
 # enable multi-select for FZF and use the preview function
 export FZF_DEFAULT_OPTS="-m --preview='preview {}' --ansi"
 
+# required to clean up the left over image preview
+fzf()
+{
+  /bin/fzf $@
+  # clean up left over images
+  tput smcup
+  kitty +kitten icat --clear
+  tput rmcup
+}
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
