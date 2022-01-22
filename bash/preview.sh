@@ -19,7 +19,7 @@ preview()
         #echo $columns X $rows @ $x X $y
         kitty +kitten icat --clear --transfer-mode stream --place=${columns}x${rows}@${x}x${y} --silent "$fileName"
     else
-        kitty +kitten icat --clear
+        kitty +kitten icat --transfer-mode stream --clear
         # default behavior
         echo "source ~/.config/nvim/init.vim | :exe \"edit \" . fnameescape('$fileName') | call AnsiHighlight('/tmp/ccat.tmp') | q" | nvim -es -R
         cat /tmp/ccat.tmp
