@@ -2,6 +2,11 @@
 
 My personal bash/nvim setup.
 
+# LICENSE
+
+If not stated otherwise (for example in a files header) the content is under the MIT license.
+See LICENSE
+
 # Download
 
 You can use the scripts by just doing a git clone or use the setup.sh
@@ -73,5 +78,8 @@ Note: ; is mapped to : and : to ; for normal mode
 TODO
 
 
+IMPORTANT
 
-
+This repository contains source code from vim plugins that are download from public repositories and most of them are not
+implemented by me. The same applies for some of the bash script (f.e. vimcat.sh).
+See file headers for orignal authors.
