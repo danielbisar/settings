@@ -64,8 +64,7 @@ OpenGL ES profile shading language version string: OpenGL ES GLSL ES 3.00
 
 
 6. start it via `kitty`
-7. Start kitty without showing a wsl window
-   create a new shortcut and enter the follow (pwsh required)
+7. To start kitty without showing a wsl window, create a new shortcut and enter
 ```
 "C:\Program Files\PowerShell\7\pwsh.exe" -WorkingDirectory ~ -WindowStyle Hidden -Command C:\Windows\System32\wsl.exe --cd ~ -e bash -c kitty
 ```
