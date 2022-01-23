@@ -73,13 +73,15 @@ Note: ; is mapped to : and : to ; for normal mode
 - :CleanAllCarriageReturns to remove all \r chars from the file
 - theme = a bit like visual studio code
 
-## plugins
+# IMPORTANT / credit
 
-TODO
+This repository contains source code from third parties found in public repositories.
+See file headers for orignal authors/license of these files.
 
+- ./vim/AnsiHighlight: Author: Matthew Wozniski 
+- ./vim/autoload/vis.vim and ./vim/doc/vis.txt: Authors: Charles E. Campbell, based on idea of Stefan Roemer
+- ./vim/autoload/plug.vim: Author: Junegunn Choi
 
-IMPORTANT
+If I missed to mention somone please contact me. All other files/code fall under the MIT License.
+See LICENSE file.
 
-This repository contains source code from vim plugins that are download from public repositories and most of them are not
-implemented by me. The same applies for some of the bash script (f.e. vimcat.sh).
-See file headers for orignal authors.
