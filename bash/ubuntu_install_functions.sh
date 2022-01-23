@@ -26,7 +26,10 @@ install-basic-graphics-programs()
 
 install-dotnet()
 {
-    wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+    ubunturelease=$(grep VERSION_ID /etc/os-release)
+    ureleaseversion=${ubunturelease:12:-1}
+
+    wget https://packages.microsoft.com/config/ubuntu/$ureleaseversion/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
     sudo dpkg -i packages-microsoft-prod.deb
     rm packages-microsoft-prod.deb
 

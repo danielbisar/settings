@@ -1,5 +1,5 @@
 """""""""""""" KEYMAP
-nnoremap <silent> <F2> :Settings<CR>
+nnoremap <silent> <F2> :Buffers<CR>
 nnoremap <silent> <F3> :Files<CR>
 nnoremap <silent> <F4> :Rg<CR>
 "nnoremap <F12> :OmniSharpGotoDefinition<CR> 
