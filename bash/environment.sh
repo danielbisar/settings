@@ -1,13 +1,13 @@
 # this file is meant to be sourced to setup environment
 # variables and so forth as i like
-
 export SETTINGS_BASE="$(dirname "${BASH_SOURCE[0]}")"
 export SETTINGS_VIM_BASE="$(dirname "${BASH_SOURCE[0]}")/../vim"
 
-
-alias vimcat="$SETTINGS_BASE/vimcat.sh"
 . "$SETTINGS_BASE"/colors.sh
 . "$SETTINGS_BASE"/preview.sh
+
+export EDITOR=nvim
+
 
 
 # make fzf use ripgrep if installed 
@@ -81,8 +81,11 @@ fi
 
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
+
+
+
 ##################### ALIASES
-alias gcm='git commit -m' 
+alias gcm='git commit -m'
 alias ga='git add'
 alias gd='git diff'
 alias gl='git log --oneline --decorate'
@@ -96,16 +99,27 @@ alias edit-env='nvim $SETTINGS_BASE/environment.sh && . $SETTINGS_BASE/environme
 alias edit-setup='nvim $SETTINGS_BASE/setup.sh'
 alias icat='kitty +kitten icat'
 
+
+
+
+
+
+
 #################### KEYBINDINGS
 # PgUp and PgDown to search history
 bind '"\e[5~": history-search-backward'
 bind '"\e[6~": history-search-forward'
 
 
-if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then 
+
+
+
+
+
+if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
     export IS_WSL=1
     . "$SETTINGS_BASE"/wsl.sh
-else 
+else
     export IS_WSL=0
 fi
 
