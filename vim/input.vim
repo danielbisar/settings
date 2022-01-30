@@ -1,5 +1,5 @@
 
-set mouse=n
+set mouse=a
 
 """""""""""""" KEYMAP
 nnoremap ; :
@@ -7,17 +7,19 @@ nnoremap : ;
 vnoremap ; :
 vnoremap : ;
 
-nnoremap <F1>   :Buffers<CR>
+nnoremap <F2>   :Buffers<CR>
 nnoremap <F3>   :Files<CR>
 nnoremap <F4>   :Rg<CR>
 " CocAction('jumpImplementation'), jumpTypeDefinition, 
+"
+nnoremap <F5>   :!dotnet run<CR>
 
-nnoremap <F2>       :CocAction('rename')<CR>
-nnoremap <F5>       :CocAction('refactor')<CR>
-nnoremap <F10>      :CocAction('jumpReferences')<CR>
-nnoremap <S-F12>    :CocAction('jumpImplementation')<CR>
+"nnoremap <F5>       :CocAction('refactor')<CR>
+"nnoremap <F6>       :CocAction<CR>
+"nnoremap <F10>      :CocAction('jumpReferences')<CR>
+"nnoremap <S-F12>    :CocAction('jumpImplementation')<CR>
 "nnoremap <S-F12>  :CocAction('jumpDeclaration')<CR>
-nnoremap <F12>    :CocAction('jumpDefinition')<CR>
+"nnoremap <F12>    :CocAction('jumpDefinition')<CR>
 
 " insert mode keymaps
 "inoremap <F12> <ESC>:OmniSharpGotoDefinition<CR>
