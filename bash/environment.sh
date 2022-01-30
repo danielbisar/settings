@@ -5,6 +5,7 @@ export SETTINGS_VIM_BASE="$(dirname "${BASH_SOURCE[0]}")/../vim"
 
 . "$SETTINGS_BASE"/colors.sh
 . "$SETTINGS_BASE"/preview.sh
+. "$SETTINGS_BASE"/sys.sh
 
 export EDITOR=nvim
 
