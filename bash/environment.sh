@@ -122,4 +122,4 @@ if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
 else
     export IS_WSL=0
 fi
-
+cd
