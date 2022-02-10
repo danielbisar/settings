@@ -1,11 +1,10 @@
-# this file is meant to be sourced to setup environment
+# this file is meant to be sourced to setup the whole environment
 # variables and so forth as i like
-export SETTINGS_BASE="$(dirname "${BASH_SOURCE[0]}")"
-export SETTINGS_VIM_BASE="$(dirname "${BASH_SOURCE[0]}")/../vim"
+. "$(dirname "${BASH_SOURCE[0]}")/vars.sh"
 
-. "$SETTINGS_BASE"/colors.sh
-. "$SETTINGS_BASE"/preview.sh
-. "$SETTINGS_BASE"/sys.sh
+. "$DB_SETTINGS_BASE"/bash/colors.sh
+. "$DB_SETTINGS_BASE"/bash/preview.sh
+. "$DB_SETTINGS_BASE"/bash/sys.sh
 
 export EDITOR=nvim
 
@@ -96,8 +95,8 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias n=nvim
-alias edit-env='nvim $SETTINGS_BASE/environment.sh && . $SETTINGS_BASE/environment.sh'
-alias edit-setup='nvim $SETTINGS_BASE/setup.sh'
+alias edit-env='nvim "$DB_SETTINGS_BASE"/bash/environment.sh && . "$DB_SETTINGS_BASE"/bash/environment.sh'
+alias edit-setup='nvim "$DB_SETTINGS_BASE"/bash/setup.sh'
 alias icat='kitty +kitten icat'
 
 
@@ -119,7 +118,7 @@ bind '"\e[6~": history-search-forward'
 
 if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
     export IS_WSL=1
-    . "$SETTINGS_BASE"/wsl.sh
+    . "$DB_SETTINGS_BASE/bash/"wsl.sh
 else
     export IS_WSL=0
 fi
