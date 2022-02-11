@@ -1,6 +1,6 @@
 # this file is meant to be sourced to setup the whole environment
 # variables and so forth as i like
-. "$(dirname "${BASH_SOURCE[0]}")/vars.sh"
+. "$(dirname "BASH_SOURCE")/vars.sh"
 
 . "$DB_SETTINGS_BASE"/bash/colors.sh
 . "$DB_SETTINGS_BASE"/bash/preview.sh
