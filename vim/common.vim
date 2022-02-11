@@ -56,7 +56,8 @@ call plug#begin()
     "   - e.g. `call plug#begin('~/.vim/plugged')`
     "   - Avoid using standard Vim directory names like 'plugin'
 
-    " Make sure you use single quotes
+    Plug 'kana/vim-textobj-user'
+    Plug 'kana/vim-textobj-entire'
 
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -83,6 +84,7 @@ let g:coc_global_extensions=[
             \ 'coc-snippets',
             \ 'coc-sql',
             \ 'coc-vimlsp' ]
+
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
