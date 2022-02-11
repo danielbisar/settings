@@ -4,17 +4,21 @@
 
 function neovim-install-without-sudo()
 {
-    echo Install without sudo
-    return
-
     mkdir -p "$DB_ROOT"
     pushd "$DB_ROOT" > /dev/null
-    wget https://github.com/neovim/neovim/releases/download/v0.6.1/nvim.appimage
-    wget https://github.com/neovim/neovim/releases/download/v0.6.1/nvim.appimage.sha256sum
+
+    VERSION="v0.6.1"
+
+    wget https://github.com/neovim/neovim/releases/download/$VERSION/nvim.appimage
+    wget https://github.com/neovim/neovim/releases/download/$VERSION/nvim.appimage.sha256sum
 
     sha256sum -c nvim.appimage.sha256sum
     echo press ctrl-c to abort or return if the sum is okay
     read
+
+    # todo if no fuse (lsmod fuse)
+    # nvim.image --appimage-extract
+    # squashfs-root/usr/bin/nvim
 
     chmod +x nvim.appimage
     ln -s ./nvim.appimage nvim
