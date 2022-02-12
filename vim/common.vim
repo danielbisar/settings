@@ -38,6 +38,10 @@ set scrolloff=5
 " display all matching files with TAB completion
 set wildmenu
 
+" disable python2 
+let g:loaded_python_provider = 0
+
+
 " plugin configuration
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 
@@ -131,15 +135,7 @@ set grepprg=rg\ --vimgrep\ --smart-case\ --follow
 
 
 
-" source from http://threkk.medium.com/how-to-have-a-neovim-configuration-compatible-with-vim-b5a46723145es
-let is_nvim = has('nvim')
 let $BASE = '$DB_SETTINGS_VIM_BASE'
-
-if is_nvim
-    source $BASE/neovim-only.vim
-else
-    source $BASE/vim-only.vim
-endif
 
 source $BASE/colors.vim
 source $BASE/filetypes.vim
@@ -154,7 +150,7 @@ command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis  | winc
 command! UpdateAll :PlugUpgrade | :PlugUpdate | :CocUpdate
 
 " helpful commands to edit and reload the vimrc file
-command! Settings edit ~/.vimrc
+command! Settings edit $BASE/common.vim
 command! SettingsColors edit $BASE/colors.vim
 command! SettingsFiletypes edit $BASE/filetypes.vim
 command! SettingsNetrw edit $BASE/netrw.vim
