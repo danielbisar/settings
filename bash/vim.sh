@@ -1,8 +1,8 @@
 #!/bin/bash
 
-. "$(dirname "BASH_SOURCE")/vars.sh"
+. "$(realpath $(dirname "$BASH_SOURCE"))/vars.sh"
 
-function neovim-install-without-sudo()
+function neovim-install()
 {
     mkdir -p "$DB_ROOT"
     pushd "$DB_ROOT" > /dev/null
@@ -25,10 +25,42 @@ function neovim-install-without-sudo()
     popd > /dev/null
 }
 
-function neovim-install-with-sudo()
+# setup the basic configs to point to the repos nvim config
+function neovim-setup-configs()
 {
-    echo Install with sudo
-    return
+    TARGET_INIT_VIM="$DB_SETTINGS_VIM_BASE"common.vim
+
+    # make sure the config dir exists
+    mkdir -p ~/.config/nvim
+
+    pushd ~/.config/nvim > /dev/null
+    echo "should be inside neovim config dir. Current dir is: "
+    pwd
+
+    # if init.vim is not a link
+    if [[ ! -L init.vim ]]; then
+	echo init.vim is not a link
+
+	# check if init.vim exists (means it is a normal file)
+        if [[ -f init.vim ]]; then
+	    echo backup init.vim to init.vim.bak
+	    cp init.vim init.vim.bak
+	    rm init.vim
+	fi
+
+	echo create symlink to "$TARGET_INIT_VIM"
+	# create a symlink to the repos init.vim
+	ln -s "$TARGET_INIT_VIM" init.vim
+    else
+	# symlink exists, verify it points to the correct file
+	if [ ! "$(readlink -- init.vim)" = "$TARGET_INIT_VIM" ]; then
+	    echo update symlink of init.vim to "$TARGET_INIT_VIM"
+	    rm init.vim
+	    ln -s "$TARGET_INIT_VIM" init.vim
+	fi	
+    fi
+
+    popd > /dev/null
 }
 
 function neovim-install-dependencies()
@@ -47,19 +79,4 @@ function neovim-install-dependencies()
     sudo apt install nodejs 
     sudo npm -g install neovim
 }
-
-
-function neovim-install()
-{
-    read -p "Do you have sudo available: " -n 1 -r
-    echo
-
-    if [[ ! $REPLY =~ ^[Yy]$ ]]
-    then
-        neovim-install-without-sudo
-    else
-        neovim-install-with-sudo
-    fi
-}
-
 
