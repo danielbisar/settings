@@ -10,11 +10,12 @@ if [[ ! -L ~/config/kitty/kitty.conf ]]; then
     ln -s "$SETTINGS_BASE"/config/kitty/kitty.conf ~/.config/kitty/kitty.conf
 fi
 
-# TODO escape path for regex
-hasBashRcEnv=$(cat ~/.bashrc | grep ". $SETTINGS_BASE/bash/environment.sh")
+BASH_ENV_PATH="${DB_SETTINGS_BASH_BASE}environment.sh"
+
+hasBashRcEnv=$(cat ~/.bashrc | grep ". $BASH_ENV_PATH")
 
 if [[ -z "$hasBashRcEnv" ]]; then
     echo "add env to bashrc"
-    echo ". $SETTINGS_BASE/bash/environment.sh" >> ~/.bashrc
+    echo ". $BASH_ENV_PATH" >> ~/.bashrc
 fi
 

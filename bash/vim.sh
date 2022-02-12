@@ -64,6 +64,27 @@ function install-rg()
     popd > /dev/null
 }
 
+function install-shellcheck()
+{
+    mkdir -p "$DB_ROOT"
+    pushd "$DB_ROOT" > /dev/null
+
+    VERSION="v0.8.0"
+
+    wget https://github.com/koalaman/shellcheck/releases/download/$VERSION/shellcheck-$VERSION.linux.x86_64.tar.xz
+    tar -xf ./shellcheck-$VERSION.linux.x86_64.tar.xz
+    rm ./shellcheck-$VERSION.linux.x86_64.tar.xz
+    
+    pushd ./shellcheck-$VERSION > /dev/null
+    mv shellcheck ..
+    popd > /dev/null
+
+    rm -rf ./shellcheck-$VERSION
+
+    popd > /dev/null
+}
+
+
 # setup the basic configs to point to the repos nvim config
 function neovim-setup-configs()
 {
@@ -104,9 +125,11 @@ function neovim-setup-configs()
 
 function neovim-install-dependencies()
 {
-    sudo apt install fzf ripgrep shellcheck
-    # without root access (TODO)
+    install-fzf
+    install-rg
+    install-shellcheck
 
+    # TODO install the following without root access
     # python3 and pynvim
     sudo apt install python3 python3-pip
     pip3 install pynvim             # if not installed yet
