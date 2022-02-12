@@ -13,9 +13,9 @@ nnoremap <F4>   :Rg<CR>
 " CocAction('jumpImplementation'), jumpTypeDefinition, 
 "
 nnoremap <F5>   :!dotnet run<CR>
+nnoremap <F6>   :CocAction<CR>
 
 "nnoremap <F5>       :CocAction('refactor')<CR>
-"nnoremap <F6>       :CocAction<CR>
 "nnoremap <F10>      :CocAction('jumpReferences')<CR>
 "nnoremap <S-F12>    :CocAction('jumpImplementation')<CR>
 "nnoremap <S-F12>  :CocAction('jumpDeclaration')<CR>
