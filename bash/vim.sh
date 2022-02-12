@@ -25,6 +25,21 @@ function neovim-install()
     popd > /dev/null
 }
 
+function install-fzf()
+{
+    mkdir -p "$DB_ROOT"
+    pushd "$DB_ROOT" > /dev/null
+
+    VERSION="0.29.0"
+
+    wget https://github.com/junegunn/fzf/releases/download/$VERSION/fzf-$VERSION-linux_amd64.tar.gz
+    tar -xf ./fzf-$VERSION-linux_amd64.tar.gz
+    rm ./fzf-$VERSION-linux_amd64.tar.gz
+
+    popd > /dev/null
+}
+
+
 # setup the basic configs to point to the repos nvim config
 function neovim-setup-configs()
 {
@@ -39,25 +54,25 @@ function neovim-setup-configs()
 
     # if init.vim is not a link
     if [[ ! -L init.vim ]]; then
-	echo init.vim is not a link
+        echo init.vim is not a link
 
-	# check if init.vim exists (means it is a normal file)
+        # check if init.vim exists (means it is a normal file)
         if [[ -f init.vim ]]; then
-	    echo backup init.vim to init.vim.bak
-	    cp init.vim init.vim.bak
-	    rm init.vim
-	fi
+            echo backup init.vim to init.vim.bak
+            cp init.vim init.vim.bak
+            rm init.vim
+        fi
 
-	echo create symlink to "$TARGET_INIT_VIM"
-	# create a symlink to the repos init.vim
-	ln -s "$TARGET_INIT_VIM" init.vim
+        echo create symlink to "$TARGET_INIT_VIM"
+        # create a symlink to the repos init.vim
+        ln -s "$TARGET_INIT_VIM" init.vim
     else
-	# symlink exists, verify it points to the correct file
-	if [ ! "$(readlink -- init.vim)" = "$TARGET_INIT_VIM" ]; then
-	    echo update symlink of init.vim to "$TARGET_INIT_VIM"
-	    rm init.vim
-	    ln -s "$TARGET_INIT_VIM" init.vim
-	fi	
+        # symlink exists, verify it points to the correct file
+        if [ ! "$(readlink -- init.vim)" = "$TARGET_INIT_VIM" ]; then
+            echo update symlink of init.vim to "$TARGET_INIT_VIM"
+            rm init.vim
+            ln -s "$TARGET_INIT_VIM" init.vim
+        fi
     fi
 
     popd > /dev/null
@@ -67,7 +82,6 @@ function neovim-install-dependencies()
 {
     sudo apt install fzf ripgrep shellcheck
     # without root access (TODO)
-    # - https://github.com/junegunn/fzf/releases/download/0.29.0/fzf-0.29.0-linux_amd64.tar.gz
 
     # python3 and pynvim
     sudo apt install python3 python3-pip
