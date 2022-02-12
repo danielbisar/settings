@@ -133,7 +133,7 @@ set grepprg=rg\ --vimgrep\ --smart-case\ --follow
 
 " source from http://threkk.medium.com/how-to-have-a-neovim-configuration-compatible-with-vim-b5a46723145es
 let is_nvim = has('nvim')
-let $BASE = '$HOME/src/settings/vim'
+let $BASE = '$DB_SETTINGS_VIM_BASE'
 
 if is_nvim
     source $BASE/neovim-only.vim
