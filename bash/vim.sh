@@ -39,6 +39,30 @@ function install-fzf()
     popd > /dev/null
 }
 
+function install-rg()
+{
+    mkdir -p "$DB_ROOT"
+    pushd "$DB_ROOT" > /dev/null
+
+    mkdir bash_compl.d
+    mkdir doc
+
+    VERSION="13.0.0"
+
+    wget https://github.com/BurntSushi/ripgrep/releases/download/$VERSION/ripgrep-$VERSION-x86_64-unknown-linux-musl.tar.gz
+    tar -xf ripgrep-$VERSION-x86_64-unknown-linux-musl.tar.gz
+    rm ripgrep-$VERSION-x86_64-unknown-linux-musl.tar.gz
+
+    pushd ripgrep-$VERSION-x86_64-unknown-linux-musl > /dev/null
+    mv rg ..
+    mv complete/rg.bash ../bash_compl.d
+    mv doc/rg.1 ../doc/
+    popd > /dev/null
+
+    rm -rf ./ripgrep-$VERSION-x86_64-unknown-linux-musl
+
+    popd > /dev/null
+}
 
 # setup the basic configs to point to the repos nvim config
 function neovim-setup-configs()
