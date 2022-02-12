@@ -59,6 +59,7 @@ call plug#begin()
     " You can specify a custom plugin directory by passing it as the argument
     "   - e.g. `call plug#begin('~/.vim/plugged')`
     "   - Avoid using standard Vim directory names like 'plugin'
+    Plug 'dense-analysis/ale'
 
     Plug 'kana/vim-textobj-user'
     Plug 'kana/vim-textobj-entire'
@@ -75,6 +76,7 @@ call plug#begin()
     Plug 'maximbaz/lightline-ale'
 
     Plug 'tomasiser/vim-code-dark'
+    Plug 'tpope/vim-commentary'
 call plug#end()
 
 
