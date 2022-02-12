@@ -23,7 +23,7 @@ fzf()
 {
   export orig_cols=$COLUMNS
   export orig_rows=$LINES
-  /bin/fzf $@
+  "$DB_ROOT"fzf $@
   # clean up left over images
   tput smcup
   kitty +kitten icat --clear
