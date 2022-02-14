@@ -2,6 +2,8 @@
 
 . "$(realpath $(dirname "$BASH_SOURCE"))/vars.sh"
 
+# TODO check if a package is already available before installing
+
 function neovim-install()
 {
     mkdir -p "$DB_ROOT"
