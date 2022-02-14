@@ -1,3 +1,4 @@
+# source all files from the custom folder
 for f in ~/.db/bash_compl.d/*; do
     . "$f"
 done

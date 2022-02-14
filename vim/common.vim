@@ -42,6 +42,12 @@ set wildmenu
 let g:loaded_python_provider = 0
 
 
+
+let g:ale_disable_lsp = 1
+let g:ale_sign_error = ''
+let g:ale_sign_warning = ''
+
+
 " plugin configuration
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 
@@ -96,7 +102,6 @@ let g:coc_global_extensions=[
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
-
 
 let g:lightline = {}
 let g:lightline.component_expand = {
