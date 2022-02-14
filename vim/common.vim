@@ -59,7 +59,9 @@ call plug#begin()
     " You can specify a custom plugin directory by passing it as the argument
     "   - e.g. `call plug#begin('~/.vim/plugged')`
     "   - Avoid using standard Vim directory names like 'plugin'
-    Plug 'dense-analysis/ale'
+    Plug 'tpope/vim-repeat'
+    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-surround'
 
     Plug 'kana/vim-textobj-user'
     Plug 'kana/vim-textobj-entire'
@@ -67,16 +69,17 @@ call plug#begin()
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'dense-analysis/ale'
     Plug 'puremourning/vimspector'
     Plug 'sheerun/vim-polyglot'
+
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
     " status bar
     Plug 'itchyny/lightline.vim'
     Plug 'maximbaz/lightline-ale'
 
     Plug 'tomasiser/vim-code-dark'
-    Plug 'tpope/vim-commentary'
 call plug#end()
 
 
