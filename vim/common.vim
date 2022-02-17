@@ -85,7 +85,9 @@ call plug#begin()
     Plug 'itchyny/lightline.vim'
     Plug 'maximbaz/lightline-ale'
 
+    " frequently used color themes
     Plug 'tomasiser/vim-code-dark'
+    Plug 'overcache/NeoSolarized'
 call plug#end()
 
 

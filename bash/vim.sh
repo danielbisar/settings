@@ -125,6 +125,11 @@ function neovim-setup-configs()
     popd > /dev/null
 }
 
+function install-nodejs()
+{
+   wget https://nodejs.org/dist/v17.5.0/node-v17.5.0-linux-x64.tar.xz
+}
+
 function neovim-install-dependencies()
 {
     install-fzf

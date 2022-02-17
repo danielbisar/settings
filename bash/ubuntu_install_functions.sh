@@ -55,6 +55,17 @@ install-source-code-pro()
     fc-cache -f -v
 }
 
+install-sauce-code-pro()
+{
+    mkdir -p ~/.fonts
+    pushd ~/.fonts
+
+    wget https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono.ttf
+
+    popd
+    fc-cache -f -v
+}
+
 install-kitty-and-dependencies()
 {
     sudo apt install fontconfig
