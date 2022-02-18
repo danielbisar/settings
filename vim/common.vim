@@ -94,12 +94,15 @@ call plug#end()
 " extensions for the coc extension
 let g:coc_global_extensions=[
             \ 'coc-marketplace',
-            \ 'coc-omnisharp',
-            \ 'coc-json',
             \ 'coc-clangd',
             \ 'coc-cmake',
+            \ 'coc-git',
+            \ 'coc-lua',
+            \ 'coc-omnisharp',
+            \ 'coc-json',
             \ 'coc-snippets',
             \ 'coc-sql',
+            \ 'coc-xml',
             \ 'coc-vimlsp' ]
 
 " Don't pass messages to |ins-completion-menu|.
