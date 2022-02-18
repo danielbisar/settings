@@ -1,6 +1,7 @@
 set termguicolors
 
 colorscheme NeoSolarized
+set background=dark
 "colorscheme codedark
 
 highlight Normal        ctermbg=black  guibg=#070707  ctermfg=lightgray guifg=lightgray
