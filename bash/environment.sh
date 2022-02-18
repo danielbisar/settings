@@ -97,8 +97,7 @@ alias l='ls -CF'
 alias n=nvim
 alias edit-env='nvim "$DB_SETTINGS_BASE"/bash/environment.sh && . "$DB_SETTINGS_BASE"/bash/environment.sh'
 alias edit-setup='nvim "$DB_SETTINGS_BASE"/bash/setup.sh'
-alias icat='kitty +kitten icat'
-
+alias wez-conf='nvim "$DB_SETTINGS_BASE"/config/wezterm/wezterm.lua'
 
 
 
