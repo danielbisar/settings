@@ -1,0 +1,4 @@
+{
+    "coc.preferences.jumpCommand": "vsplit",
+    "diagnostic.displayByAle": true
+}
