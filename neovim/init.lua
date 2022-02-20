@@ -18,5 +18,10 @@ vim.opt.shiftwidth = 4
 
 vim.opt.wildmenu = true
 
+--vim.opt.ale_disable_lsp = 1
+--vim.opt.ale_sign_error = ''
+--vim.opt.ale_sign_warning = ''
+
+
 require('plugins')
 require('input')

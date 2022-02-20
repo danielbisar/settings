@@ -45,6 +45,22 @@ return require('packer').startup(function(use)
 
   require('telescope').load_extension('fzf')
 
+  use { 'neoclide/coc.nvim', branch = 'release' }
+
+  vim.cmd([[
+	let g:coc_global_extensions = [
+            \ 'coc-marketplace',
+            \ 'coc-clangd',
+            \ 'coc-cmake',
+            \ 'coc-git',
+            \ 'coc-lua',
+            \ 'coc-omnisharp',
+            \ 'coc-json',
+            \ 'coc-snippets',
+            \ 'coc-sql',
+            \ 'coc-xml',
+            \ 'coc-vimlsp' ]  ]])
+
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if packer_bootstrap then
