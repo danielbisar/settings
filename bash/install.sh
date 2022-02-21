@@ -1,17 +1,173 @@
 #!/bin/bash
 
+. "$(realpath $(dirname "$BASH_SOURCE"))/vars.sh"
+
+# TODO check if a package is already available before installing
+
+function neovim-install()
+{
+    mkdir -p "$DB_ROOT"
+    pushd "$DB_ROOT" > /dev/null
+
+    VERSION="v0.6.1"
+
+    wget https://github.com/neovim/neovim/releases/download/$VERSION/nvim.appimage
+    wget https://github.com/neovim/neovim/releases/download/$VERSION/nvim.appimage.sha256sum
+
+    sha256sum -c nvim.appimage.sha256sum
+    echo press ctrl-c to abort or return if the sum is okay
+    read
+
+    # todo if no fuse (lsmod fuse)
+    # nvim.image --appimage-extract
+    # squashfs-root/usr/bin/nvim
+
+    rm nvim.appimage.sha256sum
+
+    chmod +x nvim.appimage
+    ln -s ./nvim.appimage nvim
+    popd > /dev/null
+}
+
+function install-fzf()
+{
+    mkdir -p "$DB_ROOT"
+    pushd "$DB_ROOT" > /dev/null
+
+    VERSION="0.29.0"
+
+    wget https://github.com/junegunn/fzf/releases/download/$VERSION/fzf-$VERSION-linux_amd64.tar.gz
+    tar -xf ./fzf-$VERSION-linux_amd64.tar.gz
+    rm ./fzf-$VERSION-linux_amd64.tar.gz
+
+    popd > /dev/null
+}
+
+function install-rg()
+{
+    mkdir -p "$DB_ROOT"
+    pushd "$DB_ROOT" > /dev/null
+
+    mkdir bash_compl.d
+    mkdir doc
+
+    VERSION="13.0.0"
+
+    wget https://github.com/BurntSushi/ripgrep/releases/download/$VERSION/ripgrep-$VERSION-x86_64-unknown-linux-musl.tar.gz
+    tar -xf ripgrep-$VERSION-x86_64-unknown-linux-musl.tar.gz
+    rm ripgrep-$VERSION-x86_64-unknown-linux-musl.tar.gz
+
+    pushd ripgrep-$VERSION-x86_64-unknown-linux-musl > /dev/null
+    mv rg ..
+    mv complete/rg.bash ../bash_compl.d
+    mv doc/rg.1 ../doc/
+    popd > /dev/null
+
+    rm -rf ./ripgrep-$VERSION-x86_64-unknown-linux-musl
+
+    popd > /dev/null
+}
+
+function install-shellcheck()
+{
+    mkdir -p "$DB_ROOT"
+    pushd "$DB_ROOT" > /dev/null
+
+    VERSION="v0.8.0"
+
+    wget https://github.com/koalaman/shellcheck/releases/download/$VERSION/shellcheck-$VERSION.linux.x86_64.tar.xz
+    tar -xf ./shellcheck-$VERSION.linux.x86_64.tar.xz
+    rm ./shellcheck-$VERSION.linux.x86_64.tar.xz
+    
+    pushd ./shellcheck-$VERSION > /dev/null
+    mv shellcheck ..
+    popd > /dev/null
+
+    rm -rf ./shellcheck-$VERSION
+
+    popd > /dev/null
+}
+
 function install-fd()
 {
-    pushd ~/.db
+    mkdir -p "$DB_ROOT"
+    pushd "$DB_ROOT" > /dev/null
 
-    wget "https://github.com/sharkdp/fd/releases/download/v8.3.2/fd-v8.3.2-x86_64-unknown-linux-gnu.tar.gz"
-    tar -xf "fd-v8.3.2-x86_64-unknown-linux-gnu.tar.gz"
-    cd "fd-v8.3.2-x86_64-unknown-linux-gnu"
+    VERSION="v8.3.2"
+
+    wget "https://github.com/sharkdp/fd/releases/download/$VERSION/fd-$VERSION-x86_64-unknown-linux-gnu.tar.gz"
+    tar -xf "fd-$VERSION-x86_64-unknown-linux-gnu.tar.gz"
+    rm "fd-$VERSION-x86_64-unknown-linux-gnu.tar.gz"
+    
+    cd "fd-$VERSION-x86_64-unknown-linux-gnu"
     mv fd ..
     mv fd.1 ..
-    mv complete/fd.bash ../bash_compl.d/
-    
+    mv autocomplete/fd.bash ../bash_compl.d/
+    cd ..
+    rm -rf "fd-$VERSION-x86_64-unknown-linux-gnu"
+
     popd
 }
 
+# setup the basic configs to point to the repos nvim config
+function neovim-setup-configs()
+{
+    TARGET_INIT_VIM="$DB_SETTINGS_VIM_BASE"common.vim
+
+    # make sure the config dir exists
+    mkdir -p ~/.config/nvim
+
+    pushd ~/.config/nvim > /dev/null
+    echo "should be inside neovim config dir. Current dir is: "
+    pwd
+
+    # if init.vim is not a link
+    if [[ ! -L init.vim ]]; then
+        echo init.vim is not a link
+
+        # check if init.vim exists (means it is a normal file)
+        if [[ -f init.vim ]]; then
+            echo backup init.vim to init.vim.bak
+            cp init.vim init.vim.bak
+            rm init.vim
+        fi
+
+        echo create symlink to "$TARGET_INIT_VIM"
+        # create a symlink to the repos init.vim
+        ln -s "$TARGET_INIT_VIM" init.vim
+    else
+        # symlink exists, verify it points to the correct file
+        if [ ! "$(readlink -- init.vim)" = "$TARGET_INIT_VIM" ]; then
+            echo update symlink of init.vim to "$TARGET_INIT_VIM"
+            rm init.vim
+            ln -s "$TARGET_INIT_VIM" init.vim
+        fi
+    fi
+
+    popd > /dev/null
+}
+
+function install-nodejs()
+{
+   wget https://nodejs.org/dist/v17.5.0/node-v17.5.0-linux-x64.tar.xz
+}
+
+function neovim-install-dependencies()
+{
+    install-fzf
+    install-rg
+    install-shellcheck
+    install-fd
+
+    # TODO install the following without root access
+    # python3 and pynvim
+    sudo apt install python3 python3-pip
+    pip3 install pynvim             # if not installed yet
+    sudo pip3 install --upgrade pynvim   # upgrade if was already installed
+
+    # nodejs latest
+    curl -sL https://deb.nodesource.com/setup_current.x | sudo -E bash -
+    sudo apt install nodejs 
+    sudo npm -g install neovim
+}
 
