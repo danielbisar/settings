@@ -5,7 +5,7 @@ local config = {
     audible_bell = "Disabled",
     color_scheme = "Solarized Darcula",
     enable_scroll_bar = true,
-    font = wezterm.font("SauceCodePro Nerd Font Mono"),
+    font = wezterm.font("SauceCodePro Nerd Font Mono", {weight="Medium"}),
 }
 
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
