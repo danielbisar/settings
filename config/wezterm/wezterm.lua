@@ -6,6 +6,8 @@ local config = {
     color_scheme = "Solarized Darcula",
     enable_scroll_bar = true,
     font = wezterm.font("SauceCodePro Nerd Font Mono", {weight="Medium"}),
+    initial_rows = 40,
+    initial_cols = 160
 }
 
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
