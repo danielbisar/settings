@@ -18,10 +18,10 @@ vim.opt.shiftwidth = 4
 
 vim.opt.wildmenu = true
 
---vim.opt.ale_disable_lsp = 1
---vim.opt.ale_sign_error = ''
---vim.opt.ale_sign_warning = ''
-
-
-require('plugins')
+require('user_commands')
 require('input')
+
+-- since this might fail, but we want default keybindings still to work
+-- so i put this after 'input'
+require('plugins')
+
