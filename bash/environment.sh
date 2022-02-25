@@ -91,6 +91,8 @@ alias gd='git diff'
 alias gl='git log --oneline --decorate'
 alias gs='git status'
 alias gp='git push'
+# think: git get
+alias gg='git pull'
 alias ll='ls -l'
 alias la='ls -lA'
 alias l='ls -C'
