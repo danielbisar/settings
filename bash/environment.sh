@@ -85,6 +85,8 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 
 ##################### ALIASES
+# cd git root
+alias cdgr='cd $(git rev-parse --show-toplevel)'
 alias gcm='git commit -m'
 alias ga='git add'
 alias gd='git diff'
@@ -97,6 +99,7 @@ alias ll='ls -l'
 alias la='ls -lA'
 alias l='ls -C'
 alias n=nvim
+alias reload-env='. "$DB_SETTINGS_BASE"/bash/environment.sh'
 alias edit-env='nvim "$DB_SETTINGS_BASE"/bash/environment.sh && . "$DB_SETTINGS_BASE"/bash/environment.sh'
 alias edit-setup='nvim "$DB_SETTINGS_BASE"/bash/setup.sh'
 alias wez-conf='nvim "$DB_SETTINGS_BASE"/config/wezterm/wezterm.lua'
