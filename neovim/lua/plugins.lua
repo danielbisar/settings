@@ -140,6 +140,7 @@ return require('packer').startup(function(use)
         \ 'coc-git',
         \ 'coc-lua',
         \ 'coc-omnisharp',
+        \ 'coc-pyright',
         \ 'coc-json',
         \ 'coc-snippets',
         \ 'coc-sql',
