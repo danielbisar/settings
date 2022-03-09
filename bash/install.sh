@@ -4,7 +4,7 @@
 
 # TODO check if a package is already available before installing
 
-function neovim-install()
+function install-neovim()
 {
     mkdir -p "$DB_ROOT"
     pushd "$DB_ROOT" > /dev/null
@@ -88,6 +88,25 @@ function install-shellcheck()
     popd > /dev/null
 }
 
+function install-nodejs()
+{
+    mkdir -p "$DB_ROOT"
+    pushd "$DB_ROOT" > /dev/null
+
+    VERSION="v17.6.0"
+    wget "https://nodejs.org/dist/$VERSION/node-$VERSION-linux-x64.tar.xz"
+
+    sudo mkdir -p /usr/local/lib/nodejs
+    sudo tar -xJvf "node-$VERSION-linux-x64.tar.xz" -C /usr/local/lib/nodejs
+
+    rm "node-$VERSION-linux-x64.tar.xz"
+
+    echo 'export PATH=/usr/local/lib/nodejs/node-v17.6.0/bin:$PATH'
+    
+    popd
+}
+
+
 function install-fd()
 {
     mkdir -p "$DB_ROOT"
@@ -102,6 +121,8 @@ function install-fd()
     cd "fd-$VERSION-x86_64-unknown-linux-gnu"
     mv fd ..
     mv fd.1 ..
+
+    mkdir -p ../bash_compl.d/
     mv autocomplete/fd.bash ../bash_compl.d/
     cd ..
     rm -rf "fd-$VERSION-x86_64-unknown-linux-gnu"
@@ -112,6 +133,8 @@ function install-fd()
 # setup the basic configs to point to the repos nvim config
 function neovim-setup-configs()
 {
+    # TODO UPDATE --> ln -s ./nvim/ /home/debian/.db/settings/neovim/
+
     TARGET_INIT_VIM="$DB_SETTINGS_VIM_BASE"common.vim
 
     # make sure the config dir exists
@@ -145,11 +168,6 @@ function neovim-setup-configs()
     fi
 
     popd > /dev/null
-}
-
-function install-nodejs()
-{
-   wget https://nodejs.org/dist/v17.5.0/node-v17.5.0-linux-x64.tar.xz
 }
 
 function neovim-install-dependencies()
