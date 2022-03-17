@@ -189,3 +189,20 @@ function neovim-install-dependencies()
     sudo npm -g install neovim
 }
 
+function install-clang-current()
+{
+	sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+}
+
+function install-neovim-from-source()
+{
+	install-clang-current
+	sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
+
+    cd /tmp
+    git clone ....
+    git checkout release-0.6
+    ...
+    ...
+}
+
