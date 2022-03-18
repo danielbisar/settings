@@ -66,14 +66,6 @@ install-sauce-code-pro()
     fc-cache -f -v
 }
 
-install-kitty-and-dependencies()
-{
-    sudo apt install fontconfig
-    install-source-code-pro
-    sudo apt install kitty imagemagick
-}
-
-
 # MESA
 install-latest-mesa()
 {

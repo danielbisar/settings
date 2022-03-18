@@ -4,8 +4,12 @@ local wezterm = require 'wezterm'
 local config = {
     audible_bell = "Disabled",
     color_scheme = "Solarized Darcula",
+    
     enable_scroll_bar = true,
+    exit_behavior = "Close",
+    
     font = wezterm.font("SauceCodePro Nerd Font Mono", {weight="Medium"}),
+
     initial_rows = 40,
     initial_cols = 160
 }

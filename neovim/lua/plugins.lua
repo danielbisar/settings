@@ -169,7 +169,8 @@ return require('packer').startup(function(use)
         \ 'coc-snippets',
         \ 'coc-sql',
         \ 'coc-xml',
-        \ 'coc-vimlsp' ]  ]])
+        \ 'coc-vimlsp',
+        \ 'coc-yaml']  ]])
 
     vim.cmd([[
         let ale_disable_lsp = 1
