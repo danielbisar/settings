@@ -23,6 +23,30 @@ return require('packer').startup(function(use)
         requires = { { 'kyazdani42/nvim-web-devicons' } }
     }
 
+    use { 'mhartington/formatter.nvim' }
+
+    require('formatter').setup({
+        filetype = {
+            cpp = {
+                function()
+                    return {
+                        exe = "clang-format",
+                        args = {"--assume-filename", vim.api.nvim_buf_get_name(0)},
+                        stdin = true,
+                        cwd = vim.fn.expand('%:p:h') -- run clang-format in cwd of the file
+                    }
+                end
+            },
+        }
+    })
+
+    vim.api.nvim_exec([[
+        augroup FormatAutogroup
+        autocmd!
+        autocmd BufWritePost *.cpp,*.hpp,*.c,*.h,*.cc,*.hh FormatWrite
+        augroup END
+    ]], true)
+
     require('nvim-tree').setup {
         disable_netrw        = false,
         hijack_netrw         = true,
@@ -151,6 +175,7 @@ return require('packer').startup(function(use)
         let ale_disable_lsp = 1
         let ale_sign_error = ''
         let ale_sign_warning = ''
+        let ale_linters = { 'cpp': ['clang'], 'c':['clang'] }
     ]])
 
     -- Automatically set up your configuration after cloning packer.nvim
