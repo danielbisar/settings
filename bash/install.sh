@@ -219,3 +219,29 @@ function install-wezterm()
 
     popd
 }
+
+function install-clang-current()
+{
+	sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+}
+
+function install-neovim-from-source()
+{
+	install-clang-current
+    
+    # https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites
+	sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
+    
+    # https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-source
+    cd /tmp
+
+    #https://github.com/neovim/neovim.git
+    #git@github.com:neovim/neovim.git
+    git clone git@github.com:neovim/neovim.git
+    cd neovim
+    git checkout release-0.6
+    
+    make CMAKE_BUILD_TYPE=Release
+    sudo make install
+}
+
