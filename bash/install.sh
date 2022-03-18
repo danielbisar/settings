@@ -2,6 +2,11 @@
 
 . "$(realpath $(dirname "$BASH_SOURCE"))/vars.sh"
 
+function db-download()
+{
+    wget -nv --show-progress $@
+}
+
 # TODO check if a package is already available before installing
 
 function install-neovim()
@@ -187,5 +192,56 @@ function neovim-install-dependencies()
     curl -sL https://deb.nodesource.com/setup_current.x | sudo -E bash -
     sudo apt install nodejs 
     sudo npm -g install neovim
+}
+
+function install-wezterm()
+{
+    OS_ID=$(cat /etc/os-release | grep ^ID= | cut -d= -f 2)
+
+    if [ ! "$OS_ID" = "ubuntu" ]; then
+        echo not an ubuntu system
+        return
+    fi
+
+    VERSION_ID=$(cat /etc/os-release | grep VERSION_ID | cut -d"=" -f 2)
+
+    if [ ! "$VERSION_ID" = "\"20.04\"" ]; then
+        echo not ubuntu 20.04
+        return
+    fi
+
+    # in case of wezterm, the nighly is used by the developer
+    # and he advices to use that version, should be kind of stable
+    rm /tmp/wezterm-nightly.Ubuntu20.04.deb
+    db-download -O /tmp/wezterm-nightly.Ubuntu20.04.deb https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly.Ubuntu20.04.deb
+    sudo apt install /tmp/wezterm-nightly.Ubuntu20.04.deb
+    rm /tmp/wezterm-nightly.Ubuntu20.04.deb
+
+    popd
+}
+
+function install-clang-current()
+{
+	sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+}
+
+function install-neovim-from-source()
+{
+	install-clang-current
+    
+    # https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites
+	sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
+    
+    # https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-source
+    cd /tmp
+
+    #https://github.com/neovim/neovim.git
+    #git@github.com:neovim/neovim.git
+    git clone git@github.com:neovim/neovim.git
+    cd neovim
+    git checkout release-0.6
+    
+    make CMAKE_BUILD_TYPE=Release
+    sudo make install
 }
 
