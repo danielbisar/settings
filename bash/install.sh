@@ -2,6 +2,11 @@
 
 . "$(realpath $(dirname "$BASH_SOURCE"))/vars.sh"
 
+function db-download()
+{
+    wget -nv --show-progress $@
+}
+
 # TODO check if a package is already available before installing
 
 function install-neovim()
@@ -189,3 +194,28 @@ function neovim-install-dependencies()
     sudo npm -g install neovim
 }
 
+function install-wezterm()
+{
+    OS_ID=$(cat /etc/os-release | grep ^ID= | cut -d= -f 2)
+
+    if [ ! "$OS_ID" = "ubuntu" ]; then
+        echo not an ubuntu system
+        return
+    fi
+
+    VERSION_ID=$(cat /etc/os-release | grep VERSION_ID | cut -d"=" -f 2)
+
+    if [ ! "$VERSION_ID" = "\"20.04\"" ]; then
+        echo not ubuntu 20.04
+        return
+    fi
+
+    # in case of wezterm, the nighly is used by the developer
+    # and he advices to use that version, should be kind of stable
+    rm /tmp/wezterm-nightly.Ubuntu20.04.deb
+    db-download -O /tmp/wezterm-nightly.Ubuntu20.04.deb https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly.Ubuntu20.04.deb
+    sudo apt install /tmp/wezterm-nightly.Ubuntu20.04.deb
+    rm /tmp/wezterm-nightly.Ubuntu20.04.deb
+
+    popd
+}
