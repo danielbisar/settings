@@ -117,13 +117,14 @@ bind '"\e[6~": history-search-forward'
 
 PATH="$PATH:$HOME/.db"
 
-
-
-
-if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
+# -n = length is non_zero
+if [[ -n "$WSL_DISTRO_NAME" ]]; then
     export IS_WSL=1
     . "$DB_SETTINGS_BASE/bash/"wsl.sh
+    cd
 else
     export IS_WSL=0
 fi
-cd
+
+. "$DB_SETTINGS_BASE/bash/install.sh"
+
