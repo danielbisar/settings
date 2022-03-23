@@ -241,6 +241,12 @@ function install-neovim-from-source()
     cd neovim
     git checkout release-0.6
     
+    export CC=/usr/bin/clang-14
+    export CXX=/usr/bin/clang++-14
+
+    export CXXFLAGS=-O3 -march=native
+    export CCFLAGS=-O3 -march=native
+
     make CMAKE_BUILD_TYPE=Release
     sudo make install
 }
