@@ -95,20 +95,23 @@ function install-shellcheck()
 
 function install-nodejs()
 {
-    mkdir -p "$DB_ROOT"
-    pushd "$DB_ROOT" > /dev/null
+    # mkdir -p "$DB_ROOT"
+    # pushd "$DB_ROOT" > /dev/null
 
-    VERSION="v17.6.0"
-    wget "https://nodejs.org/dist/$VERSION/node-$VERSION-linux-x64.tar.xz"
+    # VERSION="v17.8.0"
+    # wget "https://nodejs.org/dist/$VERSION/node-$VERSION-linux-x64.tar.xz"
 
-    sudo mkdir -p /usr/local/lib/nodejs
-    sudo tar -xJvf "node-$VERSION-linux-x64.tar.xz" -C /usr/local/lib/nodejs
+    # sudo mkdir -p /usr/local/lib/nodejs
+    # sudo tar -xJvf "node-$VERSION-linux-x64.tar.xz" -C /usr/local/lib/nodejs
 
-    rm "node-$VERSION-linux-x64.tar.xz"
+    # rm "node-$VERSION-linux-x64.tar.xz"
 
-    echo 'export PATH=/usr/local/lib/nodejs/node-v17.6.0/bin:$PATH'
+    # echo 'export PATH=/usr/local/lib/nodejs/node-v17.6.0/bin:$PATH'
     
-    popd
+    # popd
+
+    curl -fsSL https://deb.nodesource.com/setup_17.x | sudo -E bash -
+    sudo apt install -y nodejs
 }
 
 
