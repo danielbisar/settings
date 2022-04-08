@@ -1,5 +1,5 @@
 {
     "coc.preferences.jumpCommand": "vsplit",
     "diagnostic.displayByAle": true,
-    "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/13.0.0/clangd_13.0.0/bin/clangd"
+    "clangd.path": "/usr/bin/clangd-14"
 }
