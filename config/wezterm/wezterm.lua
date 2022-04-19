@@ -9,6 +9,7 @@ local config = {
     exit_behavior = "Close",
     
     font = wezterm.font("SauceCodePro Nerd Font Mono", {weight="Medium"}),
+    font_size = 14,
 
     initial_rows = 40,
     initial_cols = 160
