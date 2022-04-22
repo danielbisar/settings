@@ -1,4 +1,19 @@
-# script to fix behavior of bash history
+
+# history setup
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=10000
+HISTFILESIZE=20000
+
+
+
+# change behavior of bash history
 # normal behavior: bash overwrites the history -> last terminal wins
 # this script: merge history of all session on close
 
