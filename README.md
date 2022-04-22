@@ -23,13 +23,10 @@ bash ./setup.sh
 To make the scripts take effect:
 
 ```
-cd ~
-bash ~/src/settings/bash/setup.sh
+bash -c "$(wget -O - https://raw.githubusercontent.com/danielbisar/settings/main/install_dbs.sh)"
+# OR
+bash -c "$(curl https://raw.githubusercontent.com/danielbisar/settings/main/install_dbs.sh)"
 ```
-
-ATTENTION: This will replace your .vimrc and .config/nvim/init.vim even though 
-it should backup the files beforehand. The .bashrc gets modified to contain 
-~/src/settings/bash/environment.sh as last line.
 
 ## Further setup
 
