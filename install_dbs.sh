@@ -1,7 +1,10 @@
 #!/bin/bash
 # script to install this repo
 # usage:
-# bash -c "$(wget -O - https://raw.githubusercontent.com/danielbisar/settings/main/db_install.sh)"
+#
+# bash -c "$(wget -O - https://raw.githubusercontent.com/danielbisar/settings/main/install_dbs.sh)"
+# OR
+# bash -c "$(curl https://raw.githubusercontent.com/danielbisar/settings/main/install_dbs.sh)"
 
 clone-repo()
 {
@@ -28,4 +31,7 @@ else
     echo "download and install..."
     mkdir -p ~/.db
     type -P git &> /dev/null && clone-repo || download-repo
+
+    echo '. "$HOME/.db/settings/bash/environment.sh"' >> ~/.bashrc
+    . ~/.bashrc
 fi
