@@ -1,6 +1,7 @@
 # this file is meant to be sourced to setup the whole environment
 # variables and so forth as i like
-. "$(realpath "$(dirname "$BASH_SOURCE")")/vars.sh"
+LOCAL_SCRIPT_DIR="$(realpath "$(dirname "$BASH_SOURCE")")"
+. "$LOCAL_SCRIPT_DIR/variables.sh"
 
 . "$DB_SETTINGS_BASE"/bash/colors.sh
 . "$DB_SETTINGS_BASE"/bash/preview.sh
@@ -11,7 +12,7 @@ export EDITOR=nvim
 
 
 
-# make fzf use ripgrep if installed 
+# make fzf use ripgrep if installed
 if type rg &> /dev/null; then
     export FZF_DEFAULT_COMMAND='rg --files'
 fi
@@ -118,4 +119,3 @@ else
 fi
 
 . "$DB_SETTINGS_BASE/bash/install.sh"
-
