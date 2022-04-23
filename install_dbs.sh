@@ -17,7 +17,7 @@ db-clone-repo()
     echo "Cloning repository..."
 
     pushd "$INSTALL_LOCATION" > /dev/null || return
-    git clone https://github.com/danielbisar/settings.git
+    git clone git@github.com:danielbisar/settings.git || git clone https://github.com/danielbisar/settings.git
     popd > /dev/null
 }
 
