@@ -5,6 +5,15 @@
 # bash -c "$(wget -O - https://raw.githubusercontent.com/danielbisar/settings/main/install_dbs.sh)"
 # OR
 # bash -c "$(curl https://raw.githubusercontent.com/danielbisar/settings/main/install_dbs.sh)"
+# OR
+# if you want to specify another installation location
+# - download the install_dbs.sh
+# - chmod +x
+# - ./install_dbs.sh
+# - ./install_dbs.sh INSTALL_DIR
+#
+# Note: this scipt will not update but just add the install location to .bashrc
+
 
 INSTALL_LOCATION=~/.db
 
@@ -30,7 +39,7 @@ db-download-repo()
     if type -P wget &> /dev/null; then
         wget -O settings.tar.gz https://github.com/danielbisar/settings/tarball/main
     else
-        curl -o settings.tar.gz https://github.com/danielbisar/settings/tarball/main
+        curl -L -o settings.tar.gz https://github.com/danielbisar/settings/tarball/main
     fi
 
     mkdir settings
