@@ -1,6 +1,6 @@
 #!/bin/bash
 
-color_test_256()
+db-colors-test-256()
 {
     for fgbg in 38 48 ; do # Foreground / Background
         for color in {0..255} ; do # Colors
@@ -32,7 +32,7 @@ resetOutput()
 # $red $green and $blue are integers
 # ranging between 0 and 255 inclusive
 rainbowColor()
-{ 
+{
     let h=$1/43
     let f=$1-43*$h
     let t=$f*255/43
@@ -63,7 +63,7 @@ rainbowColor()
 }
 
 
-color_test_24bit()
+db-colors-test-24bit()
 {
     for i in `seq 0 127`; do
         setBackgroundColor $i 0 0
@@ -109,5 +109,3 @@ color_test_24bit()
     done
     resetOutput
 }
-
-
