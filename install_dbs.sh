@@ -49,7 +49,7 @@ else
 
     echo "" >> ~/.bashrc
     echo "" >> ~/.bashrc
-    echo "export DB_INSTALL_LOCATION=\"$DB_INSTALL_LOCATION\"" >> ~/.bashrc
+    echo "export DB_INSTALL_LOCATION=\"$INSTALL_LOCATION\"" >> ~/.bashrc
     echo '. "$DB_INSTALL_LOCATION/settings/bash/environment.sh"' >> ~/.bashrc
     . ~/.bashrc
 fi
