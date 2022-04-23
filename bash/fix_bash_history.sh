@@ -30,11 +30,11 @@ cp "$HISTFILE" "$HIST_FILE_NAME"
 # update HISTFILE path
 HISTFILE="$HIST_FILE_NAME"
 
-function on_close()
+function db-hist-on-close()
 {
     # append the new lines to histfile
     # note: -n +NUM skips the first NUM lines
     tail -n +$DB_ORIGINAL_HISTFILE_LINES "$HISTFILE" >> "$DB_ORIGINAL_HISTFILE"
 }
 
-trap on_close EXIT
+trap db-hist-on-close EXIT

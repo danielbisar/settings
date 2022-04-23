@@ -6,32 +6,50 @@
 # OR
 # bash -c "$(curl https://raw.githubusercontent.com/danielbisar/settings/main/install_dbs.sh)"
 
-clone-repo()
+INSTALL_LOCATION=~/.db
+
+if [ ! -z "$1" ]; then
+    INSTALL_LOCATION="$1"
+fi
+
+db-clone-repo()
 {
-    pushd ~/.db
+    echo "Cloning repository..."
+
+    pushd "$INSTALL_LOCATION" > /dev/null || return
     git clone https://github.com/danielbisar/settings.git
-    popd
+    popd > /dev/null
 }
 
-download-repo()
+db-download-repo()
 {
-    pushd ~/.db
-    wget -O settings.tar.gz https://github.com/danielbisar/settings/tarball/main
+    echo "Downloading repository..."
+
+    pushd "$INSTALL_LOCATION" > /dev/null || return
+
+    if type -P wget &> /dev/null; then
+        wget -O settings.tar.gz https://github.com/danielbisar/settings/tarball/main
+    else
+        curl -o settings.tar.gz https://github.com/danielbisar/settings/tarball/main
+    fi
+
     mkdir settings
     tar xvf settings.tar.gz --strip 1 -C settings
     rm settings.tar.gz
-    popd
+
+    popd > /dev/null
 }
 
 
-if [[ -d "~/.db/settings" ]]
-then
-    echo "found ~/.db/settings folder"
+if [ -d "$INSTALL_LOCATION/settings" ]; then
+    echo "$INSTALL_LOCATION/settings already exists. Do nothing."
 else
-    echo "download and install..."
-    mkdir -p ~/.db
-    type -P git &> /dev/null && clone-repo || download-repo
+    mkdir -p "$INSTALL_LOCATION" || return
+    type -P git &> /dev/null && db-clone-repo || db-download-repo
 
-    echo '. "$HOME/.db/settings/bash/environment.sh"' >> ~/.bashrc
+    echo "" >> ~/.bashrc
+    echo "" >> ~/.bashrc
+    echo "export DB_INSTALL_LOCATION=\"$DB_INSTALL_LOCATION\"" >> ~/.bashrc
+    echo '. "$DB_INSTALL_LOCATION/settings/bash/environment.sh"' >> ~/.bashrc
     . ~/.bashrc
 fi

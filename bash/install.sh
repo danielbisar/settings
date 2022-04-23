@@ -9,27 +9,19 @@ function db-download()
 
 # TODO check if a package is already available before installing
 
-function install-neovim()
+function db-install-neovim()
 {
     mkdir -p "$DB_ROOT"
     pushd "$DB_ROOT" > /dev/null
 
-    VERSION="v0.6.1"
+    db-download https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 
-    wget https://github.com/neovim/neovim/releases/download/$VERSION/nvim.appimage
-    wget https://github.com/neovim/neovim/releases/download/$VERSION/nvim.appimage.sha256sum
 
-    sha256sum -c nvim.appimage.sha256sum
-    echo press ctrl-c to abort or return if the sum is okay
-    read
-
-    # todo if no fuse (lsmod fuse)
+    # todo if no fuse (lsmod fuse) <-- not for WSL...
     # nvim.image --appimage-extract
     # squashfs-root/usr/bin/nvim
 
-    rm nvim.appimage.sha256sum
-
-    chmod +x nvim.appimage
+    chmod u+x nvim.appimage
     ln -s ./nvim.appimage nvim
     popd > /dev/null
 }
