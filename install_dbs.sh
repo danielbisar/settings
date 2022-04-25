@@ -27,6 +27,11 @@ db-clone-repo()
 
     pushd "$INSTALL_LOCATION" > /dev/null || return
     git clone git@github.com:danielbisar/settings.git || git clone https://github.com/danielbisar/settings.git
+
+    # always add https explicitly so that we can pull with https even if we cloned via ssh, for the case we are behind
+    # vpn that doesn't allow pull via ssh
+    git remote add origin-https https://github.com/danielbisar/settings.git
+
     popd > /dev/null
 }
 

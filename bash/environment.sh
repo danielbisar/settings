@@ -4,6 +4,7 @@ LOCAL_SCRIPT_DIR="$(realpath "$(dirname "$BASH_SOURCE")")"
 . "$LOCAL_SCRIPT_DIR/variables.sh"
 
 . "$DB_SETTINGS_BASE"/bash/colors.sh
+. "$DB_SETTINGS_BASE"/bash/db.sh
 . "$DB_SETTINGS_BASE"/bash/docker.sh
 . "$DB_SETTINGS_BASE"/bash/fix_bash_history.sh
 . "$DB_SETTINGS_BASE"/bash/install.sh
@@ -20,19 +21,19 @@ if type rg &> /dev/null; then
 fi
 
 # enable multi-select for FZF and use the preview function
-export FZF_DEFAULT_OPTS="-m --preview='preview {}' --ansi"
+#export FZF_DEFAULT_OPTS="-m --preview='preview {}' --ansi"
 
 # required to clean up the left over image preview
-fzf()
-{
-  export orig_cols=$COLUMNS
-  export orig_rows=$LINES
-  "$DB_ROOT"fzf $@
-  # clean up left over images
-  tput smcup
-  kitty +kitten icat --clear
-  tput rmcup
-}
+#fzf()
+#{
+#  export orig_cols=$COLUMNS
+#  export orig_rows=$LINES
+#  "$DB_ROOT"fzf $@
+#  # clean up left over images
+#  tput smcup
+#  kitty +kitten icat --clear
+#  tput rmcup
+#}
 
 
 # check the window size after each command and, if necessary,

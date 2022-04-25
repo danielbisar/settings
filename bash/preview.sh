@@ -34,5 +34,5 @@ preview()
 }
 
 # export the method so we can use it fzf --preview
-export -f preview
+#export -f preview
 
