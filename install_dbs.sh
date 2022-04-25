@@ -36,7 +36,9 @@ db-clone-repo()
     fi
 
     # always add https explicitly so that we can pull with https even if we cloned via ssh, for the case we are behind
-    # vpn that doesn't allow pull via ssh
+    # vpn that doesn't allow pull via ssh (the commands implemented to use https for pull does not check for timeouts 
+    # again but simply uses the specified remote)
+    cd settings
     git remote add origin-https https://github.com/danielbisar/settings.git
 
     popd > /dev/null
