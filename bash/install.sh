@@ -1,7 +1,5 @@
 #!/bin/bash
 
-. "$(realpath $(dirname "$BASH_SOURCE"))/variables.sh"
-
 function db-download()
 {
     wget -nv --show-progress $@
