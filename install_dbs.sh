@@ -26,7 +26,14 @@ db-clone-repo()
     echo "Cloning repository..."
 
     pushd "$INSTALL_LOCATION" > /dev/null || return
-    git clone git@github.com:danielbisar/settings.git || git clone https://github.com/danielbisar/settings.git
+
+    if timeout 5 bash -c "</dev/tcp/github.com/22"; then
+        echo "Using ssh to clone"
+        git clone git@github.com:danielbisar/settings.git
+    else
+        echo "Use https to clone"
+        git clone https://github.com/danielbisar/settings.git
+    fi
 
     # always add https explicitly so that we can pull with https even if we cloned via ssh, for the case we are behind
     # vpn that doesn't allow pull via ssh
