@@ -4,6 +4,7 @@ LOCAL_SCRIPT_DIR="$(realpath "$(dirname "$BASH_SOURCE")")"
 . "$LOCAL_SCRIPT_DIR/variables.sh"
 
 . "$DB_SETTINGS_BASE"/bash/colors.sh
+. "$DB_SETTINGS_BASE"/bash/docker.sh
 . "$DB_SETTINGS_BASE"/bash/preview.sh
 . "$DB_SETTINGS_BASE"/bash/sys.sh
 . "$DB_SETTINGS_BASE"/bash/fix_bash_history.sh
