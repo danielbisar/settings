@@ -5,9 +5,10 @@ LOCAL_SCRIPT_DIR="$(realpath "$(dirname "$BASH_SOURCE")")"
 
 . "$DB_SETTINGS_BASE"/bash/colors.sh
 . "$DB_SETTINGS_BASE"/bash/docker.sh
+. "$DB_SETTINGS_BASE"/bash/fix_bash_history.sh
+. "$DB_SETTINGS_BASE"/bash/install.sh
 . "$DB_SETTINGS_BASE"/bash/preview.sh
 . "$DB_SETTINGS_BASE"/bash/sys.sh
-. "$DB_SETTINGS_BASE"/bash/fix_bash_history.sh
 
 export EDITOR=nvim
 
@@ -92,15 +93,14 @@ alias ll='ls -l'
 alias la='ls -lA'
 alias l='ls -C'
 alias n=nvim
-alias reload-env='. "$DB_SETTINGS_BASE"/bash/environment.sh'
 alias edit-env='nvim "$DB_SETTINGS_BASE"/bash/environment.sh && . "$DB_SETTINGS_BASE"/bash/environment.sh'
 alias edit-setup='nvim "$DB_SETTINGS_BASE"/bash/setup.sh'
 alias wez-conf='nvim "$DB_SETTINGS_BASE"/config/wezterm/wezterm.lua'
 
-
-
-
-
+db-reload-env()
+{
+  . "$DB_SETTINGS_BASE"/bash/environment.sh
+}
 
 #################### KEYBINDINGS
 # PgUp and PgDown to search history
