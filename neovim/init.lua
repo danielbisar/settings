@@ -1,6 +1,8 @@
 -- do not abonden hidden buffers
 vim.opt.hidden = true
 
+vim.opt.splitright = true
+
 -- show line numbers
 vim.opt.number = true
 
