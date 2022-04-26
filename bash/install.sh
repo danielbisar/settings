@@ -14,13 +14,17 @@ function db-install-neovim()
 
     db-download https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 
-
-    # todo if no fuse (lsmod fuse) <-- not for WSL...
-    # nvim.image --appimage-extract
-    # squashfs-root/usr/bin/nvim
-
     chmod u+x nvim.appimage
-    ln -s ./nvim.appimage nvim
+
+    # check for fuse support
+    if ! type fusermount &> /dev/null; then
+        ./nvim.appimage --appimage-extract
+        ln -s ./squashfs-root/usr/bin/nvim nvim
+        rm ./nvim.appimage
+    else
+        ln -s ./nvim.appimage nvim
+    fi
+
     popd > /dev/null
 }
 
