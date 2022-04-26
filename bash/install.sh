@@ -14,13 +14,20 @@ function db-install-neovim()
 
     db-download https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 
-
-    # todo if no fuse (lsmod fuse) <-- not for WSL...
-    # nvim.image --appimage-extract
-    # squashfs-root/usr/bin/nvim
-
     chmod u+x nvim.appimage
-    ln -s ./nvim.appimage nvim
+
+    # make sure the link is deleted before creating a new one, if it already exist
+    rm ./nvim
+
+    # check for fuse support
+    if ! type fusermount &> /dev/null; then
+        ./nvim.appimage --appimage-extract
+        ln -s ./squashfs-root/usr/bin/nvim nvim
+        rm ./nvim.appimage
+    else
+        ln -s ./nvim.appimage nvim
+    fi
+
     popd > /dev/null
 }
 
@@ -129,43 +136,29 @@ function install-fd()
 }
 
 # setup the basic configs to point to the repos nvim config
-function neovim-setup-configs()
+function db-neovim-setup-configs()
 {
-    # TODO UPDATE --> ln -s ./nvim/ /home/debian/.db/settings/neovim/
-
-    TARGET_INIT_VIM="$DB_SETTINGS_VIM_BASE"common.vim
-
-    # make sure the config dir exists
-    mkdir -p ~/.config/nvim
-
-    pushd ~/.config/nvim > /dev/null
-    echo "should be inside neovim config dir. Current dir is: "
-    pwd
-
-    # if init.vim is not a link
-    if [[ ! -L init.vim ]]; then
-        echo init.vim is not a link
-
-        # check if init.vim exists (means it is a normal file)
-        if [[ -f init.vim ]]; then
-            echo backup init.vim to init.vim.bak
-            cp init.vim init.vim.bak
-            rm init.vim
-        fi
-
-        echo create symlink to "$TARGET_INIT_VIM"
-        # create a symlink to the repos init.vim
-        ln -s "$TARGET_INIT_VIM" init.vim
-    else
-        # symlink exists, verify it points to the correct file
-        if [ ! "$(readlink -- init.vim)" = "$TARGET_INIT_VIM" ]; then
-            echo update symlink of init.vim to "$TARGET_INIT_VIM"
-            rm init.vim
-            ln -s "$TARGET_INIT_VIM" init.vim
-        fi
+    if [[ ! -d ~/.config ]]; then
+        mkdir ~/.config
+        echo created .config folder
     fi
 
-    popd > /dev/null
+    pushd ~/.config || return
+
+    # make sure the config dir exists
+    if [[ -d ./nvim ]]; then
+        echo nvim is directory create backup
+        mv nvim nvim.bak
+    elif [[ -L ./nvim ]]; then
+        echo nvim is already a link, delete
+        rm ./nvim
+    fi
+
+    echo create new link with ln -s ./nvim/ "$DB_SETTINGS_BASE"/neovim/
+    ln -s "$DB_SETTINGS_BASE"/neovim/ ./nvim
+
+    echo "done"
+    popd
 }
 
 function neovim-install-dependencies()
