@@ -90,49 +90,16 @@ function install-shellcheck()
     popd > /dev/null
 }
 
-function install-nodejs()
+function db-install-nodejs()
 {
-    # mkdir -p "$DB_ROOT"
-    # pushd "$DB_ROOT" > /dev/null
-
-    # VERSION="v17.8.0"
-    # wget "https://nodejs.org/dist/$VERSION/node-$VERSION-linux-x64.tar.xz"
-
-    # sudo mkdir -p /usr/local/lib/nodejs
-    # sudo tar -xJvf "node-$VERSION-linux-x64.tar.xz" -C /usr/local/lib/nodejs
-
-    # rm "node-$VERSION-linux-x64.tar.xz"
-
-    # echo 'export PATH=/usr/local/lib/nodejs/node-v17.6.0/bin:$PATH'
-
-    # popd
-
-    curl -fsSL https://deb.nodesource.com/setup_17.x | sudo -E bash -
-    sudo apt install -y nodejs
+    curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+    sudo apt-get install -y nodejs
 }
 
 
-function install-fd()
+function db-install-fd()
 {
-    mkdir -p "$DB_ROOT"
-    pushd "$DB_ROOT" > /dev/null
-
-    VERSION="v8.3.2"
-
-    wget "https://github.com/sharkdp/fd/releases/download/$VERSION/fd-$VERSION-x86_64-unknown-linux-gnu.tar.gz"
-    tar -xf "fd-$VERSION-x86_64-unknown-linux-gnu.tar.gz"
-    rm "fd-$VERSION-x86_64-unknown-linux-gnu.tar.gz"
-
-    cd "fd-$VERSION-x86_64-unknown-linux-gnu"
-    mv fd ..
-    mv fd.1 ..
-
-    mkdir -p ../bash_compl.d/
-    mv autocomplete/fd.bash ../bash_compl.d/
-    cd ..
-    rm -rf "fd-$VERSION-x86_64-unknown-linux-gnu"
-
-    popd
+    sudo apt install fd-find
 }
 
 # setup the basic configs to point to the repos nvim config

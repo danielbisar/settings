@@ -166,7 +166,6 @@ return require('packer').startup(function(use)
         \ 'coc-omnisharp',
         \ 'coc-pyright',
         \ 'coc-json',
-        \ 'coc-snippets',
         \ 'coc-sql',
         \ 'coc-xml',
         \ 'coc-vimlsp',
