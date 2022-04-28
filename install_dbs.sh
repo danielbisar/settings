@@ -33,6 +33,11 @@ db-clone-repo()
     else
         echo "Use https to clone"
         git clone https://github.com/danielbisar/settings.git
+        # still set the default origin to ssh so we always have both
+        # origin = ssh, origin-https = https ;)
+        cd settings
+        git remote set-url origin git@github.com:danielbisar/settings.git
+        cd ..
     fi
 
     # always add https explicitly so that we can pull with https even if we cloned via ssh, for the case we are behind
