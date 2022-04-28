@@ -35,8 +35,6 @@ HISTFILE="$HIST_FILE_NAME"
 
 function db-hist-on-close()
 {
-    echo exit hook > ~/exit.log
-
     # force write out of current history
     history -a
 
@@ -45,12 +43,6 @@ function db-hist-on-close()
     # append the new lines to the original hist file
     # note: -n +NUM skips the first NUM lines
     tail -n +$LINES_TO_SKIP "$HISTFILE" | uniq >> "$DB_ORIGINAL_HISTFILE"
-
-
-    #echo "HISTFILE: $DB_ORIGINAL_HISTFILE" >> ~/exit.log
-    #echo "ORIG LENGTH: $DB_ORIGINAL_HISTFILE_LINES" >> ~/exit.log
-    #echo "tail -n +$LINES_TO_SKIP \"$HISTFILE\" | uniq" >> ~/exit.log
-    #tail -n +$LINES_TO_SKIP "$HISTFILE" | uniq >> ~/exit.log
 }
 
 trap db-hist-on-close EXIT
