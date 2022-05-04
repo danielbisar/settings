@@ -118,3 +118,7 @@ if [ "$IS_WSL" == 1 ]; then
 fi
 
 . "$DB_SETTINGS_BASE/bash/install.sh"
+
+############### PROMPT
+
+PS1="\e[42m\u @ \H:\e[44m \w \e[0m  \n\$ "
