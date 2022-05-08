@@ -1,23 +1,24 @@
+#!/bin/bash
 # this file is meant to be sourced to setup the whole environment
 # variables and so forth as i like
 LOCAL_SCRIPT_DIR="$(realpath "$(dirname "$BASH_SOURCE")")"
 . "$LOCAL_SCRIPT_DIR/variables.sh"
 
+. "$DB_SETTINGS_BASE"/bash/chars.sh
 . "$DB_SETTINGS_BASE"/bash/colors.sh
 . "$DB_SETTINGS_BASE"/bash/db.sh
 . "$DB_SETTINGS_BASE"/bash/docker.sh
 . "$DB_SETTINGS_BASE"/bash/fix_bash_history.sh
 . "$DB_SETTINGS_BASE"/bash/install.sh
+. "$DB_SETTINGS_BASE"/bash/prompt.sh
 . "$DB_SETTINGS_BASE"/bash/preview.sh
 . "$DB_SETTINGS_BASE"/bash/sys.sh
 
 export EDITOR=nvim
 
-
-
 # make fzf use ripgrep if installed
-if type rg &> /dev/null; then
-    export FZF_DEFAULT_COMMAND='rg --files'
+if type rg &>/dev/null; then
+  export FZF_DEFAULT_COMMAND='rg --files'
 fi
 
 # enable multi-select for FZF and use the preview function
@@ -34,7 +35,6 @@ fi
 #  kitty +kitten icat --clear
 #  tput rmcup
 #}
-
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -58,26 +58,22 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
+  #alias dir='dir --color=auto'
+  #alias vdir='vdir --color=auto'
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
 fi
 
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
-
-
-
 
 ##################### ALIASES
 # cd git root
@@ -108,17 +104,15 @@ db-reload-env()
 bind '"\e[5~": history-search-backward'
 bind '"\e[6~": history-search-forward'
 
-
 PATH="$PATH:$HOME/.db"
 
 # -n = length is non_zero
 if [ "$IS_WSL" == 1 ]; then
-    . "$DB_SETTINGS_BASE/bash/"wsl.sh
-    cd
+  . "$DB_SETTINGS_BASE/bash/"wsl.sh
+  cd
 fi
 
 . "$DB_SETTINGS_BASE/bash/install.sh"
 
 ############### PROMPT
-
-PS1="\e[42m\u @ \H:\e[44m \w \e[0m  \n\$ "
+db-setup-prompt
