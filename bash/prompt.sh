@@ -30,7 +30,21 @@ db-bash-prompt-command()
     echo -en "\e[42m\e[30m${USER}"
     echo -en "\e[44m\e[32m\uE0B8"
 
-    echo -en "\e[44m\e[39m${PWD}"
+    CWD="$PWD"
+
+    # replace $HOME with ~
+    [[ "$CWD" =~ ^"$HOME"(/|$) ]] && CWD="~${CWD#$HOME}"
+
+    echo -en "\e[44m\e[39m${CWD}"
+
+    if [ -L "$PWD" ]; then
+        LINK_TARGET="$(readlink "$PWD")"
+        # replace $HOME with ~
+        [[ "$LINK_TARGET" =~ ^"$HOME"(/|$) ]] && LINK_TARGET="~${LINK_TARGET#$HOME}"
+
+        # if current dir is symlink, display the target
+        echo -en " \uF178 ${LINK_TARGET}"
+    fi
 
     if [ $IS_GIT_REPO = 1 ]; then
         echo -en "\e[${GIT_BG_COLOR}m\e[34m\uE0B0"
