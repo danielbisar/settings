@@ -1,14 +1,17 @@
 #!/bin/bash
 
+db-bash-prompt-segment()
+{
+    content=""
+    bg_color=""
+    fg_color=""
+}
+
 db-bash-prompt-command()
 {
-    echo -en "\e[0m"
-
     COLUMNS=$(tput cols)
-    # right aligned time
-    printf "%${COLUMNS}s" "$(date +%H:%M:%S)"
-    # move cursor back to the begining of the current line
-    echo -en "\e[${COLUMNS}D"
+    DATE_START_COL=$((COLUMNS - 9))
+    CUR_TIME="$(date +%H:%M:%S)"
 
     IS_GIT_REPO=0
     GIT_CLEAN=0
@@ -24,18 +27,27 @@ db-bash-prompt-command()
         fi
     fi
 
-    echo -en "\e[43m\e[30m${HOSTNAME}"
-    echo -en "\e[42m\e[33m\uE0B8"
-
-    echo -en "\e[42m\e[30m${USER}"
-    echo -en "\e[44m\e[32m\uE0B8"
-
     CWD="$PWD"
 
     # replace $HOME with ~
     [[ "$CWD" =~ ^"$HOME"(/|$) ]] && CWD="~${CWD#$HOME}"
 
-    echo -en "\e[44m\e[39m${CWD}"
+    db-colors-reset
+    # right aligned time
+    echo -en "\e[${DATE_START_COL}C"
+
+    db-colors-reset && db-colors-set-fg '#2075C7' && echo -en '\uE0B6'
+    db-colors-reset && db-colors-set-bg '#2075C7' && echo -n "$CUR_TIME"
+    db-colors-reset
+
+    # move cursor back to the begining of the current line
+    echo -en "\e[${COLUMNS}D"
+
+    db-colors-set-bg '#B68800' && db-colors-set-fg '#000000' && echo -n "$HOSTNAME"
+    db-colors-set-bg '#629655' && db-colors-set-fg '#B68800' && echo -en '\uE0B8'
+    db-colors-set-bg '#629655' && db-colors-set-fg '#000000' && echo -n "$USER"
+    db-colors-set-bg '#2075C7' && db-colors-set-fg '#629655' && echo -en '\uE0B8'
+    db-colors-set-bg '#2075C7' && db-colors-set-fg '#000000' && echo -n "$CWD"
 
     if [ -L "$PWD" ]; then
         LINK_TARGET="$(readlink "$PWD")"

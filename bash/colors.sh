@@ -1,6 +1,6 @@
 #!/bin/bash
 
-db-output-reset()
+db-colors-reset()
 {
     echo -en "\e[0m"
 }
@@ -8,6 +8,36 @@ db-output-reset()
 db-output-set-background-color()
 {
     echo -en "\e[48;2;$1;$2;$3m"
+}
+
+db-colors-set-bg()
+{
+    color_seq=$(db-colors-hex-to-term "$1")
+    echo -en "\e[48;2;$color_seq"
+}
+
+db-colors-set-fg()
+{
+    color_seq=$(db-colors-hex-to-term "$1")
+    echo -en "\e[38;2;$color_seq"
+}
+
+db-colors-hex-to-term()
+{
+    # expect #RRGGBB
+    # skip #
+    HEX_COLOR="$(echo $1 | cut -b2-)"
+
+    R=$(echo $HEX_COLOR | cut -b1-2)
+    G=$(echo $HEX_COLOR | cut -b3-4)
+    B=$(echo $HEX_COLOR | cut -b5-6)
+
+    # convert to decimal
+    R=$(echo "obase=10; ibase=16; $R" | bc)
+    G=$(echo "obase=10; ibase=16; $G" | bc)
+    B=$(echo "obase=10; ibase=16; $B" | bc)
+
+    echo "$R;$G;$B"m
 }
 
 db-colors-test-256()
