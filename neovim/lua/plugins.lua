@@ -10,8 +10,9 @@ return require('packer').startup(function(use)
           run = ':TSUpdate | :TSInstall c_sharp | :TSInstall bash'
     }
 
-    use { 'nvim-telescope/telescope.nvim',
-          requires = { {'nvim-lua/plenary.nvim'} }
+    use { 
+        'nvim-telescope/telescope.nvim',
+        requires = { {'nvim-lua/plenary.nvim'} }
     }
 
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
@@ -191,7 +192,6 @@ return require('packer').startup(function(use)
 --    winopts.winfixheight = false
 
     -- plugin settings
-    require('telescope').load_extension('fzf')
     require('telescope').setup{
         defaults = {
             -- Default configuration for telescope goes here:
@@ -208,15 +208,16 @@ return require('packer').startup(function(use)
             -- builtin picker
         },
         extensions = {
-            -- fzf = {
+            fzf = {
             -- this are all default values
             --     fuzzy = true,
             --     override_generic_sorter = true,
             --     override_file_sorter = true,
             --     case_mode = "smart_case"
-            -- }
+            }
         }
     }
+    require('telescope').load_extension('fzf')
 
     vim.cmd([[
     let g:coc_global_extensions = [

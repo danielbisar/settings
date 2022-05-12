@@ -105,6 +105,7 @@ function db-install-fd()
 # setup the basic configs to point to the repos nvim config
 function db-neovim-setup-configs()
 {
+    # make sure the config dir exists
     if [[ ! -d ~/.config ]]; then
         mkdir ~/.config
         echo created .config folder
@@ -112,12 +113,11 @@ function db-neovim-setup-configs()
 
     pushd ~/.config || return
 
-    # make sure the config dir exists
     if [[ -d ./nvim ]]; then
-        echo nvim is directory create backup
+        echo 'nvim is a directory, create backup'
         mv nvim nvim.bak
     elif [[ -L ./nvim ]]; then
-        echo nvim is already a link, delete
+        echo 'nvim is already a link, delete that link'
         rm ./nvim
     fi
 
