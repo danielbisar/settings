@@ -147,7 +147,7 @@ function neovim-install-dependencies()
     sudo npm -g install neovim
 }
 
-function install-wezterm()
+function db-install-wezterm()
 {
     OS_ID=$(cat /etc/os-release | grep ^ID= | cut -d= -f 2)
 
@@ -158,19 +158,25 @@ function install-wezterm()
 
     VERSION_ID=$(cat /etc/os-release | grep VERSION_ID | cut -d"=" -f 2)
 
-    if [ ! "$VERSION_ID" = "\"20.04\"" ]; then
-        echo not ubuntu 20.04
-        return
+    DOWNLOAD_URL=""
+
+    if [ "$VERSION_ID" = "\"20.04\"" ]; then
+	DOWNLOAD_URL="https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly.Ubuntu20.04.deb"
+    elif [ "$VERSION_ID" = "\"22.04\"" ]; then
+	DOWNLOAD_URL="https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly.Ubuntu22.04.deb"
+    fi
+
+    if [ -z "$DOWNLOAD_URL" ]; then
+	echo "don't know download url for this type of os"
+	return
     fi
 
     # in case of wezterm, the nighly is used by the developer
     # and he advices to use that version, should be kind of stable
-    rm /tmp/wezterm-nightly.Ubuntu20.04.deb
-    db-download -O /tmp/wezterm-nightly.Ubuntu20.04.deb https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly.Ubuntu20.04.deb
-    sudo apt install /tmp/wezterm-nightly.Ubuntu20.04.deb
-    rm /tmp/wezterm-nightly.Ubuntu20.04.deb
-
-    popd
+    rm /tmp/wezterm-nightly.deb
+    db-download -O /tmp/wezterm-nightly.deb "$DOWNLOAD_URL"
+    sudo apt install /tmp/wezterm-nightly.deb
+    rm /tmp/wezterm-nightly.deb
 }
 
 function install-clang-current()
