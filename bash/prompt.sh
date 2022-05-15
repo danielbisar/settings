@@ -61,7 +61,7 @@ db-bash-prompt-command()
     if [ $IS_GIT_REPO = 1 ]; then
         echo -en "\e[${GIT_BG_COLOR}m\e[34m\uE0B0"
     else
-        echo -en "\e[49m\e[34m\uE0B0"
+        db-colors-reset && db-colors-set-fg '#2075C7' && echo -en "\uE0B0"
     fi
 
     # Additions for special folders
