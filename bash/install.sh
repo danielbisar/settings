@@ -251,29 +251,14 @@ install-dotnet()
 
 
 # fonts
-install-source-code-pro()
+db-install-sauce-code-pro()
 {
-    mkdir -p ~/.fonts
-    pushd ~/.fonts
+    sudo mkdir -p /usr/share/fonts/opentype
 
-    wget https://github.com/adobe-fonts/source-code-pro/releases/download/1.017R/source-code-pro-1.017R.zip
-    unzip source-code-pro-1.017R.zip
-    rm LICENSE.md
-    rm source-code-pro-1.017R.zip
+    sudo wget -O /usr/share/fonts/opentype/scp-regular-mono.ttf https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono.ttf
+    sudo wget -O /usr/share/fonts/opentype/scp-regular.ttf https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete.ttf
 
-    popd
-    fc-cache -f -v
-}
-
-install-sauce-code-pro()
-{
-    mkdir -p ~/.fonts
-    pushd ~/.fonts
-
-    wget https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono.ttf
-
-    popd
-    fc-cache -f -v
+    sudo fc-cache -f -v
 }
 
 # MESA
