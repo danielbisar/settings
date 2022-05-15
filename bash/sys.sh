@@ -48,3 +48,10 @@ sys-stat-net-usage()
     echo recv: $rxb_per_second Mbit/s
     echo send: $txb_per_second Mbit/s
 }
+
+
+db-get-cmp-ratio()
+{
+    python3 "$DB_SETTINGS_BASE"/python/fs.py
+}
+
