@@ -58,7 +58,7 @@ else
     sw.WriteResetBg();
 
 sw.WriteColorFg(blue);
-sw.Write("\uE0B0");
+sw.Write('\uE0B0');
 
 if (isGitRepo)
 {
@@ -81,6 +81,10 @@ if (isGitRepo)
         sw.Write("\uF00C ");
     else
         sw.Write("\uF692 ");
+
+    sw.WriteResetBg();
+    sw.WriteColorFg(gitBgColor);
+    sw.Write('\uE0B0');
 }
 
 sw.ResetAttributes();
@@ -92,6 +96,6 @@ sw.Write('\uE0B6');
 sw.WriteColorBg(blue);
 sw.WriteColorFg(black);
 sw.Write(time);
-sw.Write("\u001b[0m");
+sw.ResetAttributes();
 
 Console.WriteLine();
