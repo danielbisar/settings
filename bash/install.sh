@@ -234,14 +234,18 @@ install-basic-graphics-programs()
     sudo apt install mesa-utils
 }
 
-install-dotnet()
+db-install-dotnet()
 {
     ubunturelease=$(grep VERSION_ID /etc/os-release)
     ureleaseversion=${ubunturelease:12:-1}
 
+    pushd /tmp
+
     wget https://packages.microsoft.com/config/ubuntu/$ureleaseversion/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
     sudo dpkg -i packages-microsoft-prod.deb
     rm packages-microsoft-prod.deb
+    
+    popd
 
     sudo apt-get update; \
         sudo apt-get install -y apt-transport-https && \
