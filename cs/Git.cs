@@ -4,97 +4,48 @@ public static class Git
 {
     public static bool IsRepo(string path)
     {
-        var processStartInfo = new ProcessStartInfo();
-        processStartInfo.FileName = "git";
-        processStartInfo.ArgumentList.Add("rev-parse");
-        processStartInfo.RedirectStandardError = true;
-        processStartInfo.RedirectStandardOutput = true;
-
-        using (var process = Process.Start(processStartInfo))
-        {
-            if (process == null)
-                return false;
-
-            process.WaitForExit();
-            return process.ExitCode == 0;
-        }
+        using var process = RunGit("rev-parse");
+        return (process?.ExitCode ?? 1) == 0;
     }
 
     public static string GetCurrentBranch(string path)
     {
-        var processStartInfo = new ProcessStartInfo();
-        processStartInfo.FileName = "git";
-        processStartInfo.ArgumentList.Add("branch");
-        processStartInfo.ArgumentList.Add("--show-current");
-        processStartInfo.RedirectStandardError = true;
-        processStartInfo.RedirectStandardOutput = true;
-
-        using (var process = Process.Start(processStartInfo))
-        {
-            if (process == null)
-                return "";
-
-            process.WaitForExit();
-            return process.StandardOutput.ReadLine() ?? "";
-        }
+        using var process = RunGit("branch", "--show-current");
+        return process?.StandardOutput.ReadLine() ?? "";
     }
 
     public static bool IsClean(string path)
     {
-        var processStartInfo = new ProcessStartInfo();
-        processStartInfo.FileName = "git";
-        processStartInfo.ArgumentList.Add("diff");
-        processStartInfo.ArgumentList.Add("--quiet");
-        processStartInfo.RedirectStandardError = true;
-        processStartInfo.RedirectStandardOutput = true;
-
-        using (var process = Process.Start(processStartInfo))
-        {
-            if (process == null)
-                return true;
-
-            process.WaitForExit();
-            return process.ExitCode == 0;
-        }
+        using var process = RunGit("diff", "--quiet");
+        return (process?.ExitCode ?? 0) == 0;
     }
 
     public static int GetOutgoingCommits(string path, string branch)
     {
-        var processStartInfo = new ProcessStartInfo();
-        processStartInfo.FileName = "git";
-        processStartInfo.ArgumentList.Add("rev-list");
-        processStartInfo.ArgumentList.Add("--count");
-        processStartInfo.ArgumentList.Add("origin/" + branch + ".." + branch);
-        processStartInfo.RedirectStandardError = true;
-        processStartInfo.RedirectStandardOutput = true;
-
-        using (var process = Process.Start(processStartInfo))
-        {
-            if (process == null)
-                return 0;
-
-            process.WaitForExit();
-            return int.Parse(process.StandardOutput.ReadToEnd());
-        }
+        using var process = RunGit("rev-list", "--count", "origin/" + branch + ".." + branch);
+        return int.Parse(process?.StandardOutput.ReadToEnd() ?? "0");
     }
 
     public static int GetIncommingCommits(string path, string branch)
     {
+        using var process = RunGit("rev-list", "--count", branch + "..origin/" + branch);
+        return int.Parse(process?.StandardOutput.ReadToEnd() ?? "0");
+    }
+
+    private static Process? RunGit(params string[] cmd)
+    {
         var processStartInfo = new ProcessStartInfo();
         processStartInfo.FileName = "git";
-        processStartInfo.ArgumentList.Add("rev-list");
-        processStartInfo.ArgumentList.Add("--count");
-        processStartInfo.ArgumentList.Add(branch + "..origin/" + branch);
+        processStartInfo.ArgumentList.AddRange(cmd);
         processStartInfo.RedirectStandardError = true;
         processStartInfo.RedirectStandardOutput = true;
 
-        using (var process = Process.Start(processStartInfo))
-        {
-            if (process == null)
-                return 0;
+        var process = Process.Start(processStartInfo);
 
-            process.WaitForExit();
-            return int.Parse(process.StandardOutput.ReadToEnd());
-        }
+        if (process == null)
+            return null;
+
+        process.WaitForExit();
+        return process;
     }
 }
