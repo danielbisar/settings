@@ -77,8 +77,9 @@ db-bash-prompt-command()
 
 db-rebuild-prompt()
 {
-    pushd "$DB_SETTINGS_BASE"/cs
-    dotnet publish -c Release -r linux-x64 --self-contained
+    pushd "$DB_SETTINGS_BASE"/cs || return
+    rm -rf ./bin ./obj
+    dotnet publish -c Release -r linux-x64 --no-self-contained
     popd
 }
 
