@@ -57,4 +57,44 @@ public static class Git
             return process.ExitCode == 0;
         }
     }
+
+    public static int GetOutgoingCommits(string path, string branch)
+    {
+        var processStartInfo = new ProcessStartInfo();
+        processStartInfo.FileName = "git";
+        processStartInfo.ArgumentList.Add("rev-list");
+        processStartInfo.ArgumentList.Add("--count");
+        processStartInfo.ArgumentList.Add("origin/" + branch + ".." + branch);
+        processStartInfo.RedirectStandardError = true;
+        processStartInfo.RedirectStandardOutput = true;
+
+        using (var process = Process.Start(processStartInfo))
+        {
+            if (process == null)
+                return 0;
+
+            process.WaitForExit();
+            return int.Parse(process.StandardOutput.ReadToEnd());
+        }
+    }
+
+    public static int GetIncommingCommits(string path, string branch)
+    {
+        var processStartInfo = new ProcessStartInfo();
+        processStartInfo.FileName = "git";
+        processStartInfo.ArgumentList.Add("rev-list");
+        processStartInfo.ArgumentList.Add("--count");
+        processStartInfo.ArgumentList.Add(branch + "..origin/" + branch);
+        processStartInfo.RedirectStandardError = true;
+        processStartInfo.RedirectStandardOutput = true;
+
+        using (var process = Process.Start(processStartInfo))
+        {
+            if (process == null)
+                return 0;
+
+            process.WaitForExit();
+            return int.Parse(process.StandardOutput.ReadToEnd());
+        }
+    }
 }
