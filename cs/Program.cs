@@ -62,18 +62,28 @@ sw.Write("\uE0B0");
 
 if (isGitRepo)
 {
+    var branch = Git.GetCurrentBranch(".");
+    var outgoingCommits = Git.GetOutgoingCommits(".", branch);
+    var incommingCommits = Git.GetIncommingCommits(".", branch);
+
     sw.WriteColorBg(gitBgColor);
     sw.WriteColorFg(black);
     sw.Write("\uE725 ");
-    sw.Write(Git.GetCurrentBranch("."));
+    sw.Write(branch);
+
+    sw.Write(' ');
+    sw.Write(outgoingCommits);
+    sw.Write("\uF55D ");
+    sw.Write(incommingCommits);
+    sw.Write("\uF545 ");
 
     if (isGitClean)
-        sw.Write(" \uF00C");
+        sw.Write("\uF00C");
     else
-        sw.Write(" \uF100");
+        sw.Write("\uF692 ");
 }
 
-sw.ResetAttribute();
+sw.ResetAttributes();
 
 Console.CursorLeft = Console.BufferWidth - 9;
 sw.WriteColorFg(blue);

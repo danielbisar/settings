@@ -42,7 +42,7 @@ public static class CLI
         return result;
     }
 
-    public static void ResetAttribute(this TextWriter sw)
+    public static void ResetAttributes(this TextWriter sw)
     {
         sw.Write("\u001b[0m");
     }
