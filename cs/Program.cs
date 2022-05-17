@@ -78,7 +78,7 @@ if (isGitRepo)
     sw.Write("\uF545 ");
 
     if (isGitClean)
-        sw.Write("\uF00C");
+        sw.Write("\uF00C ");
     else
         sw.Write("\uF692 ");
 }
