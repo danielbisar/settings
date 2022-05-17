@@ -1,34 +1,49 @@
-public class CLI
+public static class CLI
 {
-    public static void WriteSetColorBg(ReadOnlySpan<char> hexColor)
+    public static void WriteColorBg(this TextWriter sw, byte[] color)
     {
-        Console.Write("\u001b[48;2;");
-        WriteColorSequence(hexColor);
+        sw.Write("\u001b[48;2;");
+        sw.WriteColorSequence(color);
     }
 
-    public static void WriteSetColorFg(ReadOnlySpan<char> hexColor)
+    public static void WriteColorFg(this TextWriter sw, byte[] color)
     {
-        Console.Write("\u001b[38;2;");
-        WriteColorSequence(hexColor);
+        sw.Write("\u001b[38;2;");
+        sw.WriteColorSequence(color);
     }
 
-    public static void WriteResetColorFg()
+    public static void WriteResetFg(this TextWriter sw)
     {
-        Console.Write("\u001b[39m");
+        sw.Write("\u001b[39m");
     }
 
-    public static void WriteResetColorBg()
+    public static void WriteResetBg(this TextWriter sw)
     {
-        Console.Write("\u001b[49m");
+        sw.Write("\u001b[49m");
     }
 
-    private static void WriteColorSequence(ReadOnlySpan<char> hexColor)
+    private static void WriteColorSequence(this TextWriter sw, byte[] color)
     {
-        Console.Write(byte.Parse(hexColor.Slice(0, 2), System.Globalization.NumberStyles.HexNumber));
-        Console.Write(';');
-        Console.Write(byte.Parse(hexColor.Slice(2, 2), System.Globalization.NumberStyles.HexNumber));
-        Console.Write(';');
-        Console.Write(byte.Parse(hexColor.Slice(4, 2), System.Globalization.NumberStyles.HexNumber));
-        Console.Write('m');
+        sw.Write(color[0]);
+        sw.Write(';');
+        sw.Write(color[1]);
+        sw.Write(';');
+        sw.Write(color[2]);
+        sw.Write('m');
+    }
+
+    public static byte[] GetColor(ReadOnlySpan<char> hexColor)
+    {
+        byte[] result = new byte[3];
+        result[0] = byte.Parse(hexColor.Slice(0, 2), System.Globalization.NumberStyles.HexNumber);
+        result[1] = byte.Parse(hexColor.Slice(2, 2), System.Globalization.NumberStyles.HexNumber);
+        result[2] = byte.Parse(hexColor.Slice(4, 2), System.Globalization.NumberStyles.HexNumber);
+
+        return result;
+    }
+
+    public static void ResetAttribute(this TextWriter sw)
+    {
+        sw.Write("\u001b[0m");
     }
 }
