@@ -75,12 +75,17 @@ db-bash-prompt-command()
     #     echo -e "\e[0m"
 }
 
+db-rebuild-prompt()
+{
+    pushd "$DB_SETTINGS_BASE"/cs
+    dotnet publish -c Release -r linux-x64 --self-contained
+    popd
+}
+
 db-setup-prompt()
 {
     if [ ! -d "$DB_SETTINGS_BASE"/cs/bin/Release/net6.0/linux-x64/publish ]; then
-        pushd "$DB_SETTINGS_BASE"/cs
-        dotnet publish -c Release -r linux-x64 --self-contained
-        popd
+        db-rebuild-prompt
     fi
 
     export PROMPT_COMMAND="db-bash-prompt-command"
