@@ -244,7 +244,7 @@ db-install-dotnet()
     wget https://packages.microsoft.com/config/ubuntu/$ureleaseversion/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
     sudo dpkg -i packages-microsoft-prod.deb
     rm packages-microsoft-prod.deb
-    
+
     popd
 
     sudo apt-get update; \
@@ -288,4 +288,9 @@ remove-oibaf-ppa()
 remove-kiask-ppa()
 {
     sudo ppa-purge ppa:kisak/kisak-mesa
+}
+
+db-install-prompt-dependencies()
+{
+    sudo apt install libgit2-dev cmake
 }

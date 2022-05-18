@@ -2,7 +2,8 @@
 
 db-bash-prompt-command()
 {
-    "$DB_SETTINGS_BASE"/cs/bin/Release/net6.0/linux-x64/publish/cs
+    # "$DB_SETTINGS_BASE"/cs/bin/Release/net6.0/linux-x64/publish/cs
+    "$DB_SETTINGS_BASE"/prompt/build/prompt
     #     COLUMNS=$(tput cols)
     #     DATE_START_COL=$((COLUMNS - 9))
     #     CUR_TIME="$(date +%H:%M:%S)"
@@ -77,9 +78,16 @@ db-bash-prompt-command()
 
 db-rebuild-prompt()
 {
-    pushd "$DB_SETTINGS_BASE"/cs || return
-    rm -rf ./bin ./obj
-    dotnet publish -c Release -r linux-x64 --no-self-contained
+    # pushd "$DB_SETTINGS_BASE"/cs || return
+    # rm -rf ./bin ./obj
+    # dotnet publish -c Release -r linux-x64 --no-self-contained
+    # popd
+
+    pushd "$DB_SETTINGS_BASE"/prompt || return
+    mkdir -p build
+    pushd build || return
+    cmake ..
+    make
     popd
 }
 
