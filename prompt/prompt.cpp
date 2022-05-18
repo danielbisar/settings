@@ -114,8 +114,12 @@ int main()
     cout
         << setfill('0') << setw(2)
         << local_time->tm_hour
-        << ":" << local_time->tm_min
-        << ":" << local_time->tm_sec;
+        << ":"
+        << setfill('0') << setw(2)
+        << local_time->tm_min
+        << ":"
+        << setfill('0') << setw(2)
+        << local_time->tm_sec;
 
     // move cursor back to the beginning
     cout << "\x1B["
