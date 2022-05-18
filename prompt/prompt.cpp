@@ -134,6 +134,10 @@ int main()
     auto home = getenv("HOME");
     auto user = getenv("USER");
 
+    // TODO replace HOME in PWD by ~
+    // TODO PWD is print link " \uF178 " + target
+    // TODO is_clean implementation + outgoing, incoming commit count
+
     // yellow 182, 136, 0
     // green  98, 150, 85
     // blue   32, 117, 199
@@ -162,8 +166,8 @@ int main()
         << "\x1B[38;2;98;150;85m"  // fg green
         << "\x1B[48;2;32;117;199m" // bg blue
         << "\uE0B8"
-        << "\x1B[38;2;0;0;0m"      // fg black
-        << pwd                     // TODO if link " \uF178 " + target
+        << "\x1B[38;2;0;0;0m" // fg black
+        << pwd
         << "\x1B[38;2;32;117;199m" // fg blue
         << endBgColor
         << "\uE0B0";
@@ -172,12 +176,14 @@ int main()
     {
         cout << "\x1B[38;2;0;0;0m" // fg black
              << "\uE725 ";
+
         // TODO is clean implementation
         // if (git.is_clean())
         //     cout
         //         << "\x1B[48;2;182;136;0m";
         // else
         //     cout << "\x1B[48;2;98;150;85m";
+
         cout << git.get_current_branch_name() << " ";
     }
 
