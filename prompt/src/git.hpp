@@ -20,7 +20,7 @@ private:
 public:
     Git(const string &path);
 
-    bool is_git_repo();
-    bool is_clean();
-    const string get_current_branch_name();
+    bool is_git_repo() const;
+    bool is_clean() const;
+    const string get_current_branch_name() const;
 };
