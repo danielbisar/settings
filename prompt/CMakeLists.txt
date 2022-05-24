@@ -10,8 +10,10 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMakeModules/")
 
 find_package(libgit2)
 
+file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp)
+
 # add the executable
-add_executable(${PROJECT_NAME} prompt.cpp)
+add_executable(${PROJECT_NAME} ${SRC_FILES})
 
 # setup include dirs and linked libs
 target_include_directories(${PROJECT_NAME}
