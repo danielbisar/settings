@@ -6,6 +6,7 @@
 #include <ctime>
 #include <iomanip>
 #include <sys/ioctl.h>
+#include <cstring>
 
 #include <git2/buffer.h>
 #include <git2/global.h>
@@ -135,8 +136,11 @@ int main()
     }
 
     auto pwd = getenv("PWD");
-    auto home = getenv("HOME");
-    auto user = getenv("USER");
+    const char *home = getenv("HOME");
+    const char *user = getenv("USER");
+
+    if (user == nullptr)
+        user = "?UNSET?";
 
     // TODO replace HOME in PWD by ~
     // TODO PWD is print link " \uF178 " + target

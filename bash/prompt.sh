@@ -78,11 +78,7 @@ db-bash-prompt-command()
 
 db-rebuild-prompt()
 {
-    # pushd "$DB_SETTINGS_BASE"/cs || return
-    # rm -rf ./bin ./obj
-    # dotnet publish -c Release -r linux-x64 --no-self-contained
-    # popd
-
+    sudo apt install -y libgit2-dev
     pushd "$DB_SETTINGS_BASE"/prompt || return
     mkdir -p build
     pushd build || return
@@ -93,10 +89,10 @@ db-rebuild-prompt()
 
 db-setup-prompt()
 {
-    if [ ! -d "$DB_SETTINGS_BASE"/cs/bin/Release/net6.0/linux-x64/publish ]; then
+    if [ ! -f "$DB_SETTINGS_BASE"/prompt/build/prompt ]; then
         db-rebuild-prompt
     fi
 
     export PROMPT_COMMAND="db-bash-prompt-command"
-    PS1="\$ "
+    PS1="\e[0m\n\$ "
 }
