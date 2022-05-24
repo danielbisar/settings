@@ -94,5 +94,5 @@ db-setup-prompt()
     fi
 
     export PROMPT_COMMAND="db-bash-prompt-command"
-    PS1="\e[0m\n\$ "
+    PS1="\$ "
 }
