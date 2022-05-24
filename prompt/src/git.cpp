@@ -9,7 +9,6 @@ Git::Git(const string &path)
     git_libgit2_init();
 
     git_buf git_root = {NULL};
-    // git_repository repo = {NULL};
 
     if (git_repository_discover(&git_root, c_path, 0, NULL) == 0)
     {
@@ -18,12 +17,12 @@ Git::Git(const string &path)
         auto r = git_repository_open(&_repo, git_root.ptr);
 
         if (r != 0)
-            cerr << "cannot open repo" << endl;
+            _isGitRepo = false;
     }
     else
         _isGitRepo = false;
 
-    // git_buf_free(&git_root);
+    // git_buf_free(&git_root); ??
 }
 
 // TODO clean up resources, even if the os takes care,
@@ -34,17 +33,17 @@ Git::Git(const string &path)
 //     git_libgit2_shutdown();
 // }
 
-bool Git::is_git_repo()
+bool Git::is_git_repo() const
 {
     return _isGitRepo;
 }
 
-bool Git::is_clean()
+bool Git::is_clean() const
 {
     return true;
 }
 
-const string Git::get_current_branch_name()
+const string Git::get_current_branch_name() const
 {
     // https://stackoverflow.com/questions/12132862/how-do-i-get-the-name-of-the-current-branch-in-libgit2
     git_reference *head_ref;
@@ -59,6 +58,7 @@ const string Git::get_current_branch_name()
         result = &symbolic_ref[11];
 
     git_reference_free(head_ref);
+    // free(symbolic_ref) ??
 
     return result;
 }

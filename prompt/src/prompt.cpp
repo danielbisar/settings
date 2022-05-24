@@ -7,16 +7,22 @@
 #include <iomanip>
 #include <sys/ioctl.h>
 #include <cstring>
+#include <filesystem>
 
 #include "git.hpp"
-
-// #define SET_FG(R, G, B) "\x1B[38;2;" #R ";" #G ";" #G "m"
-// #define SET_BG(R, G, B) "\x1B[48;2;" #R ";" #G ";" #G "m"
-#define RESET() "\x1B[0m"
+#include "powerline.hpp"
 
 using namespace std;
 
-// g++ -Wall -Wextra -o prompt -O2 ./prompt.cpp
+string getEnvVar(const char *name, const string &defaultValue = "")
+{
+    auto value = getenv(name);
+
+    if (value == NULL)
+        return defaultValue;
+
+    return string(value);
+}
 
 int main()
 {
@@ -61,68 +67,39 @@ int main()
         return -1;
     }
 
-    auto pwd = getenv("PWD");
-    const char *home = getenv("HOME");
-    const char *user = getenv("USER");
+    auto pwd = getEnvVar("PWD");
+    auto home = getEnvVar("HOME");
+    auto user = getEnvVar("USER");
 
-    if (user == nullptr)
+    if (user.length() == 0)
         user = "?UNSET?";
 
-    // TODO replace HOME in PWD by ~
-    // TODO PWD is print link " \uF178 " + target
-    // TODO is_clean implementation + outgoing, incoming commit count
+    // replace HOME in PWD by ~
+    if (pwd.rfind(home, 0) == 0)
+        pwd.replace(0, home.length(), "~");
 
-    // yellow 182, 136, 0
-    // green  98, 150, 85
-    // blue   32, 117, 199
-
-    const char *endBgColor = "\x1B[49m"; // bg reset
+    if (std::filesystem::is_symlink(pwd))
+        pwd += " \uF178 " + std::filesystem::read_symlink(pwd).string();
 
     Git git(".");
 
-    if (git.is_git_repo())
-    {
-        if (git.is_clean())
-            endBgColor = "\x1B[48;2;182;136;0m";
-        else
-            endBgColor = "\x1B[48;2;98;150;85m";
-    }
+    Powerline line;
 
-    cout
-        << "\x1B[38;2;0;0;0m"     // fg black
-        << "\x1B[48;2;182;136;0m" // bg yellow
-        << hostname
-        << "\x1B[38;2;182;136;0m" // fg yellow
-        << "\x1B[48;2;98;150;85m" // bg green
-        << "\uE0B8"
-        << "\x1B[38;2;0;0;0m" // fg black
-        << user
-        << "\x1B[38;2;98;150;85m"  // fg green
-        << "\x1B[48;2;32;117;199m" // bg blue
-        << "\uE0B8"
-        << "\x1B[38;2;0;0;0m" // fg black
-        << pwd
-        << "\x1B[38;2;32;117;199m" // fg blue
-        << endBgColor
-        << "\uE0B0";
+    line.setSeparator("\uE0B8");
+    line.addSegment(hostname, "182;136;0", "0;0;0");
+    line.addSegment(user, "98;150;85", "0;0;0");
+    line.addSegment(pwd, "32;117;199", "0;0;0")->end = "\uE0B0";
 
     if (git.is_git_repo())
     {
-        cout << "\x1B[38;2;0;0;0m" // fg black
-             << "\uE725 ";
+        auto bgColor = git.is_clean() ? "182;136;0" : "98;150;85";
+        auto branch_name = git.get_current_branch_name();
+        line.addSegment(" \uE725 " + branch_name, bgColor, "0;0;0")->end = "\u2588";
 
-        // TODO is clean implementation
-        // if (git.is_clean())
-        //     cout
-        //         << "\x1B[48;2;182;136;0m";
-        // else
-        //     cout << "\x1B[48;2;98;150;85m";
-
-        cout << git.get_current_branch_name() << " ";
+        // TODO implementation + outgoing, incoming commit count
     }
 
-    cout << RESET()
-         << endl;
+    line.write(cout);
 
     return 0;
 }
