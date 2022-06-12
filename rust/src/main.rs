@@ -12,8 +12,11 @@ fn main() {
         .into_string()
         .expect("could not convert ostring to string");
 
-    // TODO $USER under linux
-    let user = env::var("USERNAME").expect("could not get user name");
+    let user = if cfg!(windows) {
+        env::var("USERNAME").expect("could not get user name")
+    } else {
+        env::var("USER").expect("could not get user name")
+    };
 
     let pwd = env::current_dir()
         .unwrap()
@@ -32,7 +35,7 @@ fn main() {
     );
 
     let columns = crossterm::terminal::size().unwrap().0;
-    execute!(stdout(), cursor::MoveToColumn(columns - 9)).expect("bla");
+    execute!(stdout(), cursor::MoveToColumn(columns - 8)).expect("bla");
 
     let now = Utc::now();
 
