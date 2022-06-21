@@ -294,3 +294,9 @@ db-install-prompt-dependencies()
 {
     sudo apt install libgit2-dev cmake
 }
+
+db-install-rust()
+{
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+}
+

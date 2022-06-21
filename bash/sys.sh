@@ -3,7 +3,7 @@
 fwhich()
 {
     # if the given arg is a function
-    if declare -F "$1" &> /dev/null; then
+    if declare -F "$1" &>/dev/null; then
         shopt -s extdebug
         # with extdebug enabled this will print the source location where the function is defined
         declare -F "$1"
@@ -49,9 +49,14 @@ sys-stat-net-usage()
     echo send: $txb_per_second Mbit/s
 }
 
-
 db-get-cmp-ratio()
 {
     python3 "$DB_SETTINGS_BASE"/python/fs.py
 }
 
+search()
+{
+    search_term="*$1*"
+    echo "searching for '$search_term'"
+    rg --files -g "$search_term" / 2>/dev/null
+}
