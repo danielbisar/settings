@@ -24,6 +24,11 @@ db-settings-setup()
         git remote set-url origin git@github.com:danielbisar/settings.git
         git remote add origin-https https://github.com/danielbisar/settings.git
         cd -
+    else
+        # check for updates
+        cd ~/.local/opt/db-settings
+        git pull origin-https
+        cd -
     fi
 
     # source environment
