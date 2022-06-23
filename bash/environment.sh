@@ -13,6 +13,7 @@ LOCAL_SCRIPT_DIR="$(realpath "$(dirname "$BASH_SOURCE")")"
 . "$DB_SETTINGS_BASE"/bash/prompt.sh
 . "$DB_SETTINGS_BASE"/bash/preview.sh
 . "$DB_SETTINGS_BASE"/bash/sys.sh
+. "$DB_SETTINGS_BASE"/bash/lfm.sh
 
 export EDITOR=nvim
 
