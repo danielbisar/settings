@@ -11,7 +11,8 @@ See LICENSE
 
 Default installation location ~/.local/opt/db-settings.
 
-Copy db-settings-setup() function from ./install_dbs.sh into your ~/.bashrc and restart the terminal.
+Copy db-settings-setup() function from ./install_dbs.sh into your ~/.bashrc and call the function, then restart the
+terminal.
 
 ## Further setup
 
