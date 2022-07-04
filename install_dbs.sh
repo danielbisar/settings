@@ -25,10 +25,15 @@ db-settings-setup()
         git remote add origin-https https://github.com/danielbisar/settings.git
         cd -
     else
-        # check for updates
-        cd ~/.local/opt/db-settings
-        git pull origin-https
-        cd -
+        # pull one time a day
+        DB_UPDATED_TODAY_FILE_NAME="/tmp/DB_$(date +%Y_%m_%d)"
+
+        if [ ! -f "$DB_UPDATED_TODAY_FILE_NAME" ]; then
+            # check for updates
+            cd ~/.local/opt/db-settings
+            git pull origin-https main && touch "$DB_UPDATED_TODAY_FILE_NAME"
+            cd -
+        fi
     fi
 
     # source environment
