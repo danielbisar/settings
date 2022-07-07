@@ -2,23 +2,20 @@
 
 db-bash-prompt-command()
 {
-    "$DB_SETTINGS_BASE"/prompt/build/prompt
+    "$DB_SETTINGS_BASE"/prompt/target/release/prompt
 }
 
 db-rebuild-prompt()
 {
     sudo apt install -y libgit2-dev cmake g++
     pushd "$DB_SETTINGS_BASE"/prompt || return
-    mkdir -p build
-    cd build
-    cmake ..
-    make
+    cargo build -r
     popd
 }
 
 db-setup-prompt()
 {
-    if [ ! -f "$DB_SETTINGS_BASE"/prompt/build/prompt ]; then
+    if [ ! -f "$DB_SETTINGS_BASE"/prompt/target/release/prompt ]; then
         db-rebuild-prompt
     fi
 
