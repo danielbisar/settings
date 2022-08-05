@@ -14,7 +14,12 @@ fn get_user_name() -> String {
     if cfg!(windows) {
         return env::var("USERNAME").expect("could not get user name");
     } else {
-        return env::var("USER").expect("could not get user name");
+        let result = env::var("USER");
+        if result.is_ok() {
+            return result.unwrap();
+        } else {
+            return "".to_string();
+        }
     }
 }
 
