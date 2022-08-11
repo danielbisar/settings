@@ -210,25 +210,6 @@ function install-neovim-from-source()
     sudo make install
 }
 
-install-basic-tools()
-{
-    # good to to after a fresh installation
-    sudo apt update
-    sudo apt upgrade
-
-    sudo apt install fzf ripgrep ppa-purge neovim
-
-    # python3 and pynvim
-    sudo apt install python3 python3-pip
-    pip3 install pynvim             # if not installed yet
-    sudo pip3 install --upgrade pynvim   # upgrade if was already installed
-
-    # nodejs latest
-    curl -sL https://deb.nodesource.com/setup_current.x | sudo -E bash -
-    sudo apt install nodejs
-    sudo npm -g install neovim
-}
-
 install-basic-graphics-programs()
 {
     sudo apt install mesa-utils
@@ -300,3 +281,24 @@ db-install-rust()
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 }
 
+# installs default progams for ubuntu using apt
+db-install-ubuntu-defaults()
+{
+    sudo apt-get update
+    sudo apt-get upgrade -y
+
+    sudo apt-get install neovim ctags vim-scripts vim-doc fzf ripgrep ppa-purge shellcheck
+
+    db-install-rust
+
+#     # neovim dependencies
+#     # python3 and pynvim
+#     sudo apt install python3 python3-pip
+#     pip3 install pynvim             # if not installed yet
+#     sudo pip3 install --upgrade pynvim   # upgrade if was already installed
+#
+#     # nodejs latest
+#     curl -sL https://deb.nodesource.com/setup_current.x | sudo -E bash -
+#     sudo apt install nodejs
+#     sudo npm -g install neovim
+}

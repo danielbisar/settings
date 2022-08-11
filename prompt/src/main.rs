@@ -1,4 +1,4 @@
-use chrono::{Timelike, Utc};
+use chrono::{Local, Timelike};
 use crossterm::{cursor, execute};
 use owo_colors::OwoColorize;
 use std::{env, fs, io::stdout};
@@ -110,7 +110,7 @@ fn main() {
 
     move_cursor_relative_to_right(9);
 
-    let now = Utc::now();
+    let now = Local::now();
     let str_now = format!("{:02}:{:02}:{:02}", now.hour(), now.minute(), now.second());
 
     print!("{}", "".fg_rgb::<32, 117, 199>());
