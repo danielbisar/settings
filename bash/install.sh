@@ -287,7 +287,7 @@ db-install-ubuntu-defaults()
     sudo apt-get update
     sudo apt-get upgrade -y
 
-    sudo apt-get install neovim ctags vim-scripts vim-doc fzf ripgrep ppa-purge shellcheck
+    sudo apt-get install tree neovim ctags vim-scripts vim-doc fzf ripgrep ppa-purge shellcheck
 
     db-install-rust
 
