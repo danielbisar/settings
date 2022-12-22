@@ -60,3 +60,12 @@ search()
     echo "searching for '$search_term'"
     rg --files -g "$search_term" / 2>/dev/null
 }
+
+dfree()
+{
+    # for the last grep line: https://superuser.com/questions/914856/display-all-output-but-highlight-search-matches
+    # prints all output and colors the whole line of the match
+    df -h --output=target,avail,used,size,fstype,pcent |
+        grep -v /snap | grep -v /dev |
+        grep -e "/home.*\|/ .*\|$"
+}

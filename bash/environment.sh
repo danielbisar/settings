@@ -90,14 +90,36 @@ alias gg='git pull'
 alias ll='ls -l'
 alias la='ls -lA'
 alias l='ls -C'
-alias n=nvim
+alias n='nvim --listen /tmp/nvimsocket'
+alias no='nvr --remote '
 alias edit-env='nvim "$DB_SETTINGS_BASE"/bash/environment.sh && . "$DB_SETTINGS_BASE"/bash/environment.sh'
 alias edit-setup='nvim "$DB_SETTINGS_BASE"/bash/setup.sh'
 alias wez-conf='nvim "$DB_SETTINGS_BASE"/config/wezterm/wezterm.lua'
 
+function lb_out()
+{
+  for i in ./*; do
+    if git -C "$i" rev-parse --is-inside-work-tree &>/dev/null; then
+      echo -e "$i\t$(git -C "$i" rev-parse --abbrev-ref HEAD)"
+    else
+      echo "$i"
+    fi
+  done
+}
+
+function lb()
+{
+  lb_out | column -t
+}
+
 db-reload-env()
 {
   . "$DB_SETTINGS_BASE"/bash/environment.sh
+}
+
+db-autostart()
+{
+  "$DB_SETTINGS_BASE"/bash/autostart.sh
 }
 
 #################### KEYBINDINGS
